@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE, cache=FALSE)
 ```
 
 
-## 1. Import packages and data
+##  1. Import packages and data
 ```{r, message = FALSE}
 if (!require("devtools")) install.packages('devtools')
 
