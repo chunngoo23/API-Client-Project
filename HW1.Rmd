@@ -1,0 +1,155 @@
+---
+title: "HW1"
+author: "Ting An Lai"
+date: "2019-09-23"
+output:
+  html_document:
+    highlight: textmate
+    theme: spacelab
+    toc: yes
+  pdf_document:
+    toc: yes
+  word_document:
+    toc: yes
+  html_notebook:
+    toc: yes
+always_allow_html: yes
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache=FALSE)
+```
+
+
+## Import packages and data
+```{r}
+if (!require("devtools")) install.packages('devtools')
+
+if (!require("kableExtra")) install.packages ('kableExtra')
+if (!require("ggplot2")) install.packages ('ggplot2')
+devtools::install_github("rudeboybert/fivethirtyeight")
+library(fivethirtyeight)
+library(knitr)
+data(package = "fivethirtyeight")
+```
+
+## 2. Get some data
+American Health Care Act Poll is a 15 observations and 7 variables dataframe. The 15 observations are for 15 times pollings for general public's attitude to American Health Care Act. This ahca_poll data was visualized in the original article to support the argument that Republican's current Health Care Act bill has negative net approval ratings, even worse than the net approval ratings of Obamacare in 2010. Original article: https://fivethirtyeight.com/features/why-the-gop-is-so-hell-bent-on-passing-an-unpopular-health-care-bill/
+```{r}
+head(ahca_polls)
+```
+
+### A dataframe with two columns: variable names and variable descriptions.
+```{r}
+variable_descriptions = c('The date polling started',  'The date polling ended', 'The pollster entity', 'The 100-scale ratings of favoribility to the ahca bill', 'The 100-scale rating  of opposing  to the  ahca bill', 'The original polling source', 'The original polling question')
+variable_names  = colnames (ahca_polls)
+df.var = data.frame(variable_names,  variable_descriptions)
+```
+
+
+## 3. Show data
+
+A simple summary of the data
+```{r, echo=FALSE}
+summary (ahca_polls)
+```
+
+```{r, message = FALSE, echo=FALSE}
+if (!require("DT")) install.packages('DT')
+library(DT)
+```
+
+
+###  Interactive datatable
+```{r, echo=FALSE}
+ahca_polls_table = datatable (ahca_polls[1:5])
+ahca_polls_table
+```
+
+### Interactive kable
+```{r, echo=FALSE}
+ahca_polls_sub_col = ahca_polls[1:5]
+ahca_polls_sub_col[6] <- ahca_polls_sub_col[4] - ahca_polls_sub_col[5]
+colnames (ahca_polls_sub_col) <- c('Poll_Start_Date', 'Poll_End_Date', 'Pollster_Entity', 'Favor_Attitude', 'Oppose_Attitude', 'Net_Approval_Ratings')
+ahca_polls_kable = kable (ahca_polls_sub_col)
+ahca_polls_kable
+```
+
+## 4. Add some Latex formulas
+```{r, echo=FALSE, results = 'hide'}
+# the length of the text question is related to net approval ratings 
+# Obtain the text length of each poll's question 
+
+survey_text_split <- function (x) {
+  corpus_list = list()
+  for (i in c(1:15)) {
+  counter = ahca_polls [i,7]
+  poll_question_text = as.character (counter)
+  text_corpus = strsplit(poll_question_text, " ")
+#  text_corpus = unlist (text_corpus)
+#  print (text_corpus)
+  corpus_list[i] = text_corpus
+  }
+  return (corpus_list)
+}
+
+split_words = survey_text_split(ahca_polls[7])
+
+survey_text_length <- function (x) {
+  text_length = c()
+  for (i in c(1:15)) {
+    vectorize = unlist (x[[i]])
+    text_length [i] = length(vectorize)
+  }
+  return (text_length)
+}
+
+text_length = survey_text_length(split_words)
+text_length # text length for each survey question
+
+net_approval_prediction = lm (text_length ~ unlist (ahca_polls_sub_col[6]))
+
+```
+
+
+You can predict the net approval ratings by the length of polling question 
+$$ 0.15 \times survey \ text \ length - 40.18 = net \ approval \ ratings$$
+```{r, echo = FALSE, include=TRUE, results = 'hide'}
+example_question_length <- 22
+```
+
+For example, `r example_question_length` words in a polling question corresponds to `r example_question_length*0.15 - 40.18` net approval ratings
+
+
+
+```{r, message=FALSE, warning=FALSE, include=FALSE}
+library(ggplot2)
+library(dygraphs)
+library(leaflet)
+```
+
+## 5. Add a plot
+```{r}
+ahca_polls_sub_col[7] <- text_length
+colnames (ahca_polls_sub_col) <- c('Poll_Start_Date', 'Poll_End_Date', 'Pollster_Entity', 'Favor_Attitude', 'Oppose_Attitude', 'Net_Approval_Ratings', 'Text_Length')
+b <- ggplot (ahca_polls_sub_col, aes(x = Text_Length, y = Net_Approval_Ratings ))  + geom_point()
+print (b +  ggtitle  ('Relationship between poll question length and response attitude') + labs (y  = "Net Approval Ratings  (-100 ~100)",  x  =  "Text Length"))
+
+```
+
+
+## 6. Add a picture
+```{r}
+
+```
+
+
+
+
+## 7. More Markdown
+>  This is going to be a 100-point homework
+^[Lai, T.A. (2019).]
+
+```{r}
+
+```
+
