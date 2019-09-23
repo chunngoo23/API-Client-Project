@@ -1,19 +1,13 @@
 ---
-title: "HW1"
+title: "hw01"
 author: "Ting An Lai"
-date: "2019-09-23"
+date: '2019-09-23'
 output:
-  html_document:
-    highlight: textmate
-    theme: spacelab
-    toc: yes
-  pdf_document:
-    toc: yes
-  word_document:
-    toc: yes
+#  html_document:
+#    df_print: paged
+#    toc: yes
   html_notebook:
     toc: yes
-always_allow_html: yes
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache=FALSE)
