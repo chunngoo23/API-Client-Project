@@ -42,6 +42,17 @@ df.var = data.frame(variable_names,  variable_descriptions)
 df.var
 ```
 
+| Command | Description |
+| --- | --- |
+| start | the date polling started. |
+| end | the date polling ended. |
+| pollster | the pollster entity. |
+| favor | the 100-scale ratings of favoribility to the ahca bill. |
+| oppose | the 100-scale rating  of opposing  to the  ahca bill. |
+| url | the original polling source. |
+| text | the original polling question. |
+
+
 
 ## 3. Show data
 
