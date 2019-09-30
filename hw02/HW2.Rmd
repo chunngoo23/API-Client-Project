@@ -14,8 +14,11 @@ knitr::opts_chunk$set(echo = TRUE, cache=FALSE)
 ```
 
 
-```{r}
+```{r, message = FALSE}
 if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("kableExtra")) install.packages ('kableExtra')
+if (!require("DT")) install.packages('DT')
+library(DT)
 library(dplyr)
 library(tidyverse)
 library(tidyr)
@@ -83,7 +86,7 @@ binge_clean <- poverty_df %>%
   left_join (binge_overall_df) %>%
   left_join(binge_female_male_df) 
 
-View (binge_clean)
+datatable (binge_clean)
 ```
 
 ### Write into csv
@@ -92,7 +95,7 @@ write.csv(binge_clean,"/Users/tinganlai/Documents/GitHub/Lai_Ting_An/hw02/binge_
 ```
 
 ## 4. Data Transformation and Summary Results
-```{r}
+```{r, message = FALSE}
 question4_df <- binge_clean 
 
 #select needed variables, select the most recent year, arrange in binge_all order
@@ -104,11 +107,11 @@ question4_df <- question4_df %>%
 
 #select top ten binge_all states
 table_4 <- question4_df[1:10,]
-View (table_4)
+kable (table_4)
 ```
 
 ## 5. Make Scatterplot
-In general, the states that poverty crude prevalence under 20, the poverty crude prevalence has a negative correlation with binge drinking overall crude prevalence. In other words, states that are more wealthy overall binge drinking more. However, there are few states that scored extremely high in poverty, like Puerto Rico; therefore, the smooth method has less confidence in predicting the overall binge drinking rate for poverty crude prevalence over 30. This could be seen in the gradually wider confidence interval (grey area) in the plot.
+In general, when poverty crude prevalence is under 20, the poverty crude prevalence has a negative correlation with binge drinking overall crude prevalence. In other words, states that are more wealthy has a higher overall binge drinking growth rate. However, there are few states that scored extremely high in poverty, like Puerto Rico; therefore, the smooth method has less confidence in predicting the overall binge drinking rate for poverty crude prevalence over 30. This could be seen in the gradually wider confidence interval (grey area) in the plot.
 
 ```{r}
 if (!require("ggplot2")) install.packages('ggplot2')
@@ -131,7 +134,7 @@ geom_smooth()
 ```
 
 ## 6. Summarize over time
-```{r}
+```{r, message = FALSE, warning = FALSE}
 question6_df <- binge_clean %>%
   arrange (state) %>%
   filter (!is.na(binge_all) & !is.na(binge_female) & !is.na(binge_male)) #remove NA binge rows
@@ -160,9 +163,12 @@ AGR <- question6_df %>%
   summarize (AverageAnnualGrowthRate = mean (binge_all))%>%
   arrange(AverageAnnualGrowthRate)
 
-
-View (Top5Increase_AGR)
-View (Top5Decrease_AGR)
+#Average Annual Growth Rates
+kable(AGR)
+#Top 5 Increase AGR
+kable (Top5Increase_AGR)
+#Top 5 Decrease AGR
+kable (Top5Decrease_AGR)
 ```
 
 
