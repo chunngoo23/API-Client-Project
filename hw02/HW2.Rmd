@@ -83,7 +83,7 @@ binge_clean <- poverty_df %>%
   left_join (binge_overall_df) %>%
   left_join(binge_female_male_df) 
 
-binge_clean
+View (binge_clean)
 ```
 
 ### Write into csv
@@ -104,7 +104,7 @@ question4_df <- question4_df %>%
 
 #select top ten binge_all states
 table_4 <- question4_df[1:10,]
-table_4
+View (table_4)
 ```
 
 ## 5. Make Scatterplot
@@ -161,8 +161,8 @@ AGR <- question6_df %>%
   arrange(AverageAnnualGrowthRate)
 
 
-Top5Increase_AGR
-Top5Decrease_AGR
+View (Top5Increase_AGR)
+View (Top5Decrease_AGR)
 ```
 
 
