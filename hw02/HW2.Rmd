@@ -141,26 +141,31 @@ question6_df <- binge_clean %>%
 
 question6_df$binge_all <- as.numeric(levels(question6_df$binge_all))[question6_df$binge_all] #correct data type
 
+AGR_fixed <- question6_df %>% 
+  mutate (diff_crude = binge_all[-1] - binge_all, AGR = diff_crude/binge_all*100) %>%# calculate annual growth rate
+  filter (year != "2016")#remove the wrong AGR rows in 2016
+
+
 #calculate AGR for binge_all and select the top 5 AGR binge_all
-Top5Increase_AGR <- question6_df %>%
+Top5Increase_AGR <- AGR_fixed %>%
   arrange (state) %>%
   group_by(state) %>%
-  summarize (AverageAnnualGrowthRate = mean (binge_all)) %>%
+  summarize (AverageAnnualGrowthRate = mean (AGR)) %>%
   top_n(n=5) %>%
   arrange(desc(AverageAnnualGrowthRate))
 
 #calculate AGR for binge_all and select the smallest 5 AGR binge_all
-Top5Decrease_AGR <- question6_df %>%
+Top5Decrease_AGR <- AGR_fixed %>%
   arrange (state) %>%
   group_by(state) %>%
-  summarize (AverageAnnualGrowthRate = mean (binge_all)) %>%
+  summarize (AverageAnnualGrowthRate = mean (AGR)) %>%
   top_n(n=-5) %>%
   arrange(desc(AverageAnnualGrowthRate))
 
-AGR <- question6_df %>%
+AGR <- AGR_fixed %>%
   arrange (state) %>%
   group_by(state) %>%
-  summarize (AverageAnnualGrowthRate = mean (binge_all))%>%
+  summarize (AverageAnnualGrowthRate = mean (AGR))%>%
   arrange(AverageAnnualGrowthRate)
 
 #Average Annual Growth Rates
