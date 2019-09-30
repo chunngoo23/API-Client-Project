@@ -13,6 +13,7 @@ While you are developing your branch base on a  point, the master is still devel
 
 ```{r}
 install.packages('tidyverse')
+install.packages('addinslist')
 library(tidyverse)
 ```
 
@@ -35,7 +36,7 @@ Functions in dplyr are mostly mapping to SQL and can even be linkedin and mapped
 When doing accessing data, using number or name, thinking in the way that if you slightly modify the dataframe, can you still access the data with the way you accessed it.
 
 # tidyr
-When imagining/planning for reforming the dataframe, 
+When imagining/planning for reforming the dataframe, think about your ID  key.
 
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
