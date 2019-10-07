@@ -3,10 +3,10 @@ title: "hw02"
 author: "Ting An Lai"
 date: '2019-09-29'
 output:
+  html_notebook:
+    toc: yes
   html_document:
     df_print: paged
-    toc: yes
-  html_notebook:
     toc: yes
 ---
 ```{r setup, include=FALSE}

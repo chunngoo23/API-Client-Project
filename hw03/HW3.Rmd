@@ -1,0 +1,181 @@
+---
+title: "hw03"
+author: "Ting An Lai"
+date: '2019-10-06'
+output:
+#  html_document:
+#    df_print: paged
+#    toc: yes
+  html_notebook:
+    toc: yes
+---
+
+## 1. Monkey Song
+### a) Write the loop: 
+1) iterated from 10 to the last verse
+2) print 10 to 8 monkeys to console
+```{r}
+# Create a df storing the verses
+song.df <- vector("character", 11)
+
+# for loop that 1) iterates from 10 to the last verse 2) print 10 to 8 monkeys to console
+for (i in 10:0) {
+  
+  #Iterate all monkey verses into the song dataframe
+  if (i > 1){
+    song.df[11-i] <- paste (i, 'little monkeys jumping on the bed, One fell down and
+                            bumped his head,Mama called the doctor and the doctor
+                            said,"No more monkeys jumping on the bed!"')
+    } else if (i == 1) {
+      song.df [11-i] <- c('1 little monkey jumping on the bed, He fell down and bumped
+                          his head, Mama called the doctor and the doctor said,"No
+                          more monkeys jumping on the bed!"')
+      } else {
+        song.df [11-i] <- c('No little monkeys jumping on the bed,None fell down an
+                            bumped their heads,Papa called the doctor and the doctor
+                            said,"Put those monkeys right to bed!"')
+        }
+  
+  #Only print out 10 to 8 monkeys verse
+  if (i >= 8) {
+    cat (i, 'little monkeys jumping on the bed,\nOne fell down and bumped his head,\nMama called the doctor and the doctor said,\n"No more monkeys jumping on the bed!"\n\n')
+    } 
+}
+```
+
+
+### b) c) Convert loop to a function
+
+#### Function
+```{r}
+animal.song <- function (animal = "monkey", number = 10){
+  animal.plur = paste (animal, "s", sep = "")
+  
+  # Warning message for numeric entry
+  if (is.numeric(number) == FALSE) {
+    print ("Please enter a numeric number for the amount of animals")
+  } else if (number <3) {
+    print ("Please enter a number larger than 3")
+  } else {
+ 
+  # Create empty vector for later printing
+  song.df <- vector ("character", number)
+  
+  # Looping for different iterations
+  for (i in number:0) {
+    if (i > 1){
+      song.df[number-i+1] <-paste (i, 'little', animal.plur, 'jumping on the bed,\nOne fell down and bumped his head,\nMama called the doctor and the doctor said,\n"No more', animal.plur, 'jumping on the bed!"\n\n')
+      } else if (i == 1) {
+        song.df[number-i+1] <-  paste('1 little', animal, 'jumping on the bed,\nHe fell down and bumped his head,\nMama called the doctor and the doctor said,\n"No more', animal.plur,'jumping on the bed!"\n\n')
+        } else {
+          song.df[number-i+1] <- paste('No little',animal.plur, 'jumping on the bed,\nNone fell down and bumped their heads,\nPapa called the doctor and the doctor said,\n"Put those',animal.plur,'right to bed!"\n\n\n')
+        }
+    }
+  cat (song.df)
+  }
+  
+}
+```
+
+#### Default animal, monkeys; default number, 10
+```{r}
+animal.song ()
+```
+
+#### 3 Piglets verse
+```{r}
+animal.song("Piglet", 3)
+```
+
+### Warning message testing
+```{r}
+animal.song ("Cats", TRUE)
+```
+
+### d) BONUS (optional): Convert loop to a fully generalized function
+```{r}
+animal.song.gen <- function (animal = "monkey", number = 10, activity = "jumping", parent.prob = 0.5){
+  # Modify animal plurality
+  animal.plur = paste (animal, "s", sep = "")
+  # Address mama papa probability 
+  parent.vector = rbinom (number+1, 1, parent.prob)
+  parent.vector <- gsub (1, "Mama", parent.vector)
+  parent.vector <- gsub (0, "Papa", parent.vector)
+
+  # Address incorrect input warning signs
+  
+  if (is.numeric(number) == FALSE) {
+    print ("Please enter a numeric number for the amount of animals")
+  } else {
+  # Create empty vector for later printing
+  song.df <- vector ("character", number)
+  
+  # Looping for different iterations
+  for (i in number:0) {
+    if (i > 1){
+      song.df[number-i+1] <-paste (i, 'little', animal.plur, activity,  'on the bed,\nOne fell down and bumped his head,\n', parent.vector[number-i+1], 'called the doctor and the doctor said,\n"No more', animal.plur, activity, 'on the bed!"\n\n')
+      } else if (i == 1) {
+        song.df[number-i+1] <-  paste('1 little', animal, activity, 'on the bed,\nHe fell down and bumped his head,\n', parent.vector[number-i+1], 'called the doctor and the doctor said,\n"No more', animal.plur,activity, 'on the bed!"\n\n')
+        } else {
+          song.df[number-i+1] <- paste('No little',animal.plur, activity, 'on the bed,\nNone fell down and bumped their heads,\n', parent.vector[number-i+1], 'called the doctor and the doctor said,\n"Put those',animal.plur,'right to bed!"\n\n\n')
+        }
+    }
+  cat (song.df)
+  }
+  
+}
+
+```
+
+```{r}
+animal.song.gen("kangaroo", 3, "dancing", 0.5)
+```
+
+
+## 2. Draw a plot using a loop
+
+Let's draw a plot with a loop. You can inialize a new plot with plot(). Lines can be added to a plot with lines() command. For example, lines(x = c(1,1), y = c(1,7)) will draw a line between the coordinates (1,1) and (1,7).
+
+### a) b) c) Plot horizontal,  vertical lines, and points
+```{r}
+plot(1, type="n", xlab="", ylab="", xlim = c(0, 10), ylim = c(0, 10))
+for (i in seq (0,10)) {
+  lines(x = c(0, 10), y = c(i,i))
+  lines (x = c(i, i), y = c(0, 10))
+}
+for (i in seq (0, 10)) {
+  points (x = i, y = i)
+  points (x = i, y = 10-i)
+}
+
+```
+
+### d) Convert to function
+```{r}
+plot.draw <- function (size = 10, horizontal_line = TRUE, vertical_line = TRUE, points_on_diagonal = TRUE ) {
+  plot(1, type="n", xlab="", ylab="", xlim = c(0, size), ylim = c(0, size))
+  if (horizontal_line){
+    for (i in seq (0,size)) {
+    lines(x = c(0, size), y = c(i,i))
+    }
+  }  
+  if (vertical_line) {
+    for (i in seq (0,size)) {
+    lines(x = c(i, i), y = c(0,size))
+    }
+  }  
+  if (points_on_diagonal) {
+    for (i in seq (0, size)) {
+  points (x = i, y = i)
+  points (x = i, y = size-i)
+}
+}
+}
+
+
+#plot.draw ()
+#plot.draw (5, TRUE, TRUE, FALSE)
+```
+
+
+
