@@ -1803,10 +1803,11 @@ dplyr_functions &lt;- Filter(is.function, content)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol style="list-style-type: lower-alpha">
-<li>Longest name</li>
-</ol>
-<p>Use the appropriate map function to produce a vector of the names of all functions in the dplyr package. Which function has the longest name?</p>
+<div id="a-longest-name" class="section level4">
+<h4>a) Longest name</h4>
+</div>
+<div id="use-the-appropriate-map-function-to-produce-a-vector-of-the-names-of-all-functions-in-the-dplyr-package.-which-function-has-the-longest-name" class="section level4">
+<h4>Use the appropriate map function to produce a vector of the names of all functions in the dplyr package. Which function has the longest name?</h4>
 <p>group_by_drop_default</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1824,10 +1825,12 @@ names (dplyr_functions)[fun_name_len == longest_name_index]</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Number of arguments</li>
-</ol>
-<p>Use the appropriate map function to calculate the number of arguments by function. Present a table of the Top 10 functions with the most arguments. Which function has the most arguments? Hint: Remember that the functions formals(), body(), and environment() allow you to access parts of a function.</p>
+</div>
+<div id="b-number-of-arguments" class="section level4">
+<h4>b) Number of arguments</h4>
+</div>
+<div id="use-the-appropriate-map-function-to-calculate-the-number-of-arguments-by-function.-present-a-table-of-the-top-10-functions-with-the-most-arguments.-which-function-has-the-most-arguments-hint-remember-that-the-functions-formals-body-and-environment-allow-you-to-access-parts-of-a-function." class="section level4">
+<h4>Use the appropriate map function to calculate the number of arguments by function. Present a table of the Top 10 functions with the most arguments. Which function has the most arguments? Hint: Remember that the functions formals(), body(), and environment() allow you to access parts of a function.</h4>
 <p>sql_select has the most arguments, 10.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1853,10 +1856,12 @@ sorted_arg_length = sort (unlist (fun_arg_length), decreasing = TRUE)</code></pr
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="3" style="list-style-type: lower-alpha">
-<li>Most common argument</li>
-</ol>
-<p>Which function arguments are the top 5 most common. Briefly explain what the most common argument does?</p>
+</div>
+<div id="c-most-common-argument" class="section level4">
+<h4>c) Most common argument</h4>
+</div>
+<div id="which-function-arguments-are-the-top-5-most-common.-briefly-explain-what-the-most-common-argument-does" class="section level4">
+<h4>Which function arguments are the top 5 most common. Briefly explain what the most common argument does?</h4>
 <p>1.The most common argument is … which is additional arguments passed on to the function. 2. The second common argument is x, which is the object that the function has major function on. 3. The third common is tbl, which is table 4. The fourth common is data, which is the dataset that the method is exerted on 5. The fifth common is funs, which is list of functioms.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1872,13 +1877,11 @@ sort (table (all_arg), decreasing = TRUE) [1:5]</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
+</div>
 <div id="infant-mortality-and-gpd-per-capita" class="section level1">
 <h1>2. Infant Mortality and GPD per Capita</h1>
-<p>For this exercise, we will use data from the World Bank to explore the relationship between infant mortality (infmort) and GPD per capita (gdpcap) over time (year).</p>
-<ol style="list-style-type: lower-alpha">
-<li>Highest and lowest infant mortality rates in 2018</li>
-</ol>
-<p>Use the WDI package to obtain country-year data on infant mortality and GDP per capita from the World Bank database.</p>
+<div id="a-highest-and-lowest-infant-mortality-rates-in-2018" class="section level4">
+<h4>a) Highest and lowest infant mortality rates in 2018</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjpbIiNpbnN0YWxsLnBhY2thZ2VzKCdXREknKSIsImxpYnJhcnkoV0RJKSIsImRmID0gV0RJKGNvdW50cnkgPSBcImFsbFwiLCBpbmRpY2F0b3IgPSBjIChcIk5ZLkdEUC5QQ0FQLlBQLktEXCIsIFwiU1AuRFlOLklNUlQuSU5cIiksIHN0YXJ0ID0gMTk2MCwgZW5kID0gMjAxOCwgZXh0cmEgPSBUUlVFLCBjYWNoZSA9IE5VTEwpIl19 -->
@@ -1888,8 +1891,7 @@ df = WDI(country = &quot;all&quot;, indicator = c (&quot;NY.GDP.PCAP.PP.KD&quot;
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>The indicator short names in the World Development Indicators are:</p>
-<p>NY.GDP.PCAP.PP.KD - GDP per capita, PPP (constant 2005 international) SP.DYN.IMRT.IN - Mortality rate, infant (per 1,000 live births) Make sure to obtain information about the region of the country as well (using the extra=TRUE option in the WDI() command). Specify the requested range of years from 1960 to 2018.</p>
+</div>
 <div id="rename-the-variables-infant-mortality-infmort-and-gpd-per-capita-gdpcap.-keep-only-entries-for-countries-i.e.remove-entries-for-regions-and-the-world-as-a-whole." class="section level3">
 <h3>Rename the variables: infant mortality (infmort) and GPD per capita (gdpcap). Keep only entries for countries (i.e. remove entries for regions and the World as a whole).</h3>
 <!-- rnb-text-end -->
@@ -1901,7 +1903,8 @@ df &lt;- subset(df, region != &quot;Aggregates&quot;)  </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Present a list of countries with the 5 highest and the 5 lowest infant mortality rates in 2018 along with their GDP per capita in that year.</p>
+<div id="present-a-list-of-countries-with-the-5-highest-and-the-5-lowest-infant-mortality-rates-in-2018-along-with-their-gdp-per-capita-in-that-year." class="section level4">
+<h4>Present a list of countries with the 5 highest and the 5 lowest infant mortality rates in 2018 along with their GDP per capita in that year.</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjpbInN1YmRmIDwtIGRmICU+JVxuICBmaWx0ZXIgKHllYXIgPT0gMjAxOCkgJT4lXG4gIHNlbGVjdCAoXCJjb3VudHJ5XCIsIFwieWVhclwiLCBcImluZm1vcnRcIiwgXCJnZHBjYXBcIikgJT4lXG4gIG5hLm9taXQgKCkiLCIiLCIiLCJGaXZlTG93ZXN0ID0gc3ViZGZbb3JkZXIoc3ViZGYkaW5mbW9ydClbMTo1XSxjIChcImNvdW50cnlcIiwgXCJ5ZWFyXCIsIFwiaW5mbW9ydFwiLCBcImdkcGNhcFwiKV0iLCJGaXZlSGlnaGVzdCA9IHN1YmRmW29yZGVyKHN1YmRmJGluZm1vcnQsIGRlY3JlYXNpbmcgPSBUUlVFKVsxOjVdLGMgKFwiY291bnRyeVwiLCBcInllYXJcIiwgXCJpbmZtb3J0XCIsIFwiZ2RwY2FwXCIpXSJdfQ== -->
@@ -1940,9 +1943,12 @@ FiveHighest = subdf[order(subdf$infmort, decreasing = TRUE)[1:5],c (&quot;countr
 </div>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Overall regression Run an overall regression predicting infant mortality from GDP per capita. What do you find? Make a scatter plot (including a regression fit line).</li>
-</ol>
+</div>
+<div id="b-overall-regression" class="section level4">
+<h4>b) Overall regression</h4>
+</div>
+<div id="run-an-overall-regression-predicting-infant-mortality-from-gdp-per-capita.-what-do-you-find-make-a-scatter-plot-including-a-regression-fit-line." class="section level4">
+<h4>Run an overall regression predicting infant mortality from GDP per capita. What do you find? Make a scatter plot (including a regression fit line).</h4>
 <p>The relationship between GDP and infant mortality is negative. However, the linear relatinoship might not be the best for describing the negative relationship.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1963,10 +1969,12 @@ ggplot(subreg, aes(x = gdpcap, y = infmort)) +
 <!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="3" style="list-style-type: lower-alpha">
-<li>Regression by region</li>
-</ol>
-<p>Let’s see if the overall relationship holds within world regions. Split the the data by region and create a nested list that contains these split data frames. In a single pipeline, re-estimate the regression for each of these data frames, obtain the coefficient estimates for the slope for each region and present them in a table (sorted by size of the coefficient).</p>
+</div>
+<div id="c-regression-by-region" class="section level4">
+<h4>c) Regression by region</h4>
+</div>
+<div id="lets-see-if-the-overall-relationship-holds-within-world-regions.-split-the-the-data-by-region-and-create-a-nested-list-that-contains-these-split-data-frames.-in-a-single-pipeline-re-estimate-the-regression-for-each-of-these-data-frames-obtain-the-coefficient-estimates-for-the-slope-for-each-region-and-present-them-in-a-table-sorted-by-size-of-the-coefficient." class="section level4">
+<h4>Let’s see if the overall relationship holds within world regions. Split the the data by region and create a nested list that contains these split data frames. In a single pipeline, re-estimate the regression for each of these data frames, obtain the coefficient estimates for the slope for each region and present them in a table (sorted by size of the coefficient).</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjpbImRmJHJlZ2lvbiA8LSBmYWN0b3IgKGRmJHJlZ2lvbikiLCIiLCJzdWJyZWdpb24gPC0gZGYiLCJyZWdpb25fY29lZiA8LXN1YnJlZ2lvbiAgJT4lXG4gIHNlbGVjdCAoJ2luZm1vcnQnLCAnZ2RwY2FwJywgJ3JlZ2lvbicpICU+JVxuICBuYS5vbWl0ICgpICAlPiVcbiAgc3BsaXQgKCBzdWJyZWdpb24kcmVnaW9uKSAlPiVcbiAgbWFwICh+bG0gKGluZm1vcnQgfmdkcGNhcCwgZGF0YSA9LiksIHNhZmVseShzdWJyZWdpb24pKSAlPiVcbiAgbWFwICh+Y29lZiAoLikpICU+JVxuICBtYXBfZGJsICgnZ2RwY2FwJykgJT4lXG4gIHNvcnQgKCkiXX0= -->
@@ -2001,10 +2009,12 @@ data length is not a multiple of split variable</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="4" style="list-style-type: lower-alpha">
-<li>Regression by country</li>
-</ol>
-<p>Let’s also check if the relationship is consistent if estimated within countries. Split the overall data by country and create a nested list that contains these split data frames.</p>
+</div>
+<div id="d-regression-by-country" class="section level4">
+<h4>d) Regression by country</h4>
+</div>
+<div id="lets-also-check-if-the-relationship-is-consistent-if-estimated-within-countries.-split-the-overall-data-by-country-and-create-a-nested-list-that-contains-these-split-data-frames." class="section level4">
+<h4>Let’s also check if the relationship is consistent if estimated within countries. Split the overall data by country and create a nested list that contains these split data frames.</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjpbIiMgZGF0YWZyYW1lIHByZXByb2Nlc3NpbmciLCJzdWJjb3VudCA8LSBkZiIsInQgPSB0YWJsZSAoc3ViY291bnQkY291bnRyeSkiLCJsZXZlbHMoc3ViY291bnQkY291bnRyeSkgPC0gbmFtZXMgKHQpIiwic3ViY291bnQgPC0gbmEub21pdCAoc3ViY291bnQpIiwiIiwiIiwiIyBwaXBlbGluZSIsImNvZWZfcmFuayA8LSBzdWJjb3VudCAlPiVcbiAgc3BsaXQoc3ViY291bnQkY291bnRyeSkgJT4lXG4gIG1hcCAofmxtIChpbmZtb3J0IH5nZHBjYXAsIGRhdGEgPS4pLCBzYWZlbHkgKGNvZWZfcmFuaykpICU+JVxuICBtYXAgKH5jb2VmICguKSkgJT4lXG4gIG1hcF9kYmwgKCdnZHBjYXAnKSAlPiVcbiAgc29ydCAoZGVjcmVhc2luZyA9IFRSVUUpIiwiIiwiIyBzdW1tYXJ5ICIsImNvZWZfcmFua19zdW1tYXJ5IDwtIHN1YmNvdW50ICU+JVxuICBzcGxpdChzdWJjb3VudCRjb3VudHJ5KSAlPiVcbiAgbWFwICh+bG0gKGluZm1vcnQgfmdkcGNhcCwgZGF0YSA9LiksIHNhZmVseSAoY29lZl9yYW5rKSkgJT4lXG4gIG1hcCAofnN1bW1hcnkgKC4pKSAlPiVcbiAgbWFwX2RibCgnYWRqLnIuc3F1YXJlZCcpIiwiIiwiIiwiI2NoZWNrIGNvbmYgaW50ZXJ2YWwiLCJjb25maW5fcmFuayA8LSBzdWJjb3VudCAlPiVcbiAgc3BsaXQoc3ViY291bnQkY291bnRyeSkgJT4lXG4gIG1hcCAofmxtIChpbmZtb3J0IH5nZHBjYXAsIGRhdGEgPS4pKSAlPiVcbiAgbWFwICh+c3VtbWFyeSAoLikpICU+JVxuICBtYXAgKGNvbmZpbnQpIiwiIiwiY29lZl9yYW5rIl19 -->
@@ -2230,7 +2240,9 @@ St. Vincent and the Grenadines            St. Kitts and Nevis
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Again, estimate a simple linear regression, predicting infant mortality by GDP per capita. In what percentage of the within-country regressions do we find a positive relationship (at the 95% confidence level) between GDP per capita and infant mortality?</p>
+</div>
+<div id="again-estimate-a-simple-linear-regression-predicting-infant-mortality-by-gdp-per-capita.-in-what-percentage-of-the-within-country-regressions-do-we-find-a-positive-relationship-at-the-95-confidence-level-between-gdp-per-capita-and-infant-mortality" class="section level4">
+<h4>Again, estimate a simple linear regression, predicting infant mortality by GDP per capita. In what percentage of the within-country regressions do we find a positive relationship (at the 95% confidence level) between GDP per capita and infant mortality?</h4>
 <p>7.57 %</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -2242,7 +2254,9 @@ St. Vincent and the Grenadines            St. Kitts and Nevis
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Make a histogram of the slope coefficients to illustrate the variation of the estimated relationship. Which country cases are most at odds with the overall regression estimated in part (b)?</p>
+</div>
+<div id="make-a-histogram-of-the-slope-coefficients-to-illustrate-the-variation-of-the-estimated-relationship.-which-country-cases-are-most-at-odds-with-the-overall-regression-estimated-in-part-b" class="section level4">
+<h4>Make a histogram of the slope coefficients to illustrate the variation of the estimated relationship. Which country cases are most at odds with the overall regression estimated in part (b)?</h4>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjpbImNvZWZfZGYgPSBhcy5kYXRhLmZyYW1lKGNvZWZfcmFuaykiLCIiLCJnIDwtIGdncGxvdChjb2VmX2RmLCBhZXMoeD1jb2VmX3JhbmspKSArIFxuICBnZW9tX2hpc3RvZ3JhbSgpICtcbiAgeGxhYiAoXCJjb2VmXCIpICIsImciXX0= -->
@@ -2460,8 +2474,12 @@ sort (ab_int, decreasing = TRUE)</code></pre>
 <ol start="5" style="list-style-type: lower-alpha">
 <li>Added squared term</li>
 </ol>
-<p>Let’s see if we can improve the models slightly. Using the list of country data frames from (d), estimate regressions of infant mortality on GDP per capita and the square of GDP per capita.</p>
-<p>Compare the adjusted R-Squareds of the models with and without the added squared term of GDP per capita.</p>
+</div>
+<div id="lets-see-if-we-can-improve-the-models-slightly.-using-the-list-of-country-data-frames-from-d-estimate-regressions-of-infant-mortality-on-gdp-per-capita-and-the-square-of-gdp-per-capita." class="section level4">
+<h4>Let’s see if we can improve the models slightly. Using the list of country data frames from (d), estimate regressions of infant mortality on GDP per capita and the square of GDP per capita.</h4>
+</div>
+<div id="compare-the-adjusted-r-squareds-of-the-models-with-and-without-the-added-squared-term-of-gdp-per-capita." class="section level4">
+<h4>Compare the adjusted R-Squareds of the models with and without the added squared term of GDP per capita.</h4>
 <p>The adjusted R-squared without added squared term had in general a lower adjusted r-squared score.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -2511,8 +2529,10 @@ adjr_rank_sqr [1:15]</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Provide the average model adjusted R-squared with and without the squared term. Would you recommend to keep the squared term or not?</p>
-<p>Yes. The adjusted r-squared with squred term is 0.78 which is much higher than the adjusted r-squred without the squared term, 0.66.</p>
+</div>
+<div id="provide-the-average-model-adjusted-r-squared-with-and-without-the-squared-term.-would-you-recommend-to-keep-the-squared-term-or-not" class="section level4">
+<h4>Provide the average model adjusted R-squared with and without the squared term. Would you recommend to keep the squared term or not?</h4>
+<p>I would recommend to keep the squared term The adjusted r-squared with squred term is 0.78 which is much higher than the adjusted r-squred without the squared term, 0.66.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoibWVhbiAoYWRqcl9yYW5rX3NxcikifQ== -->
@@ -2536,8 +2556,9 @@ adjr_rank_sqr [1:15]</code></pre>
 <!-- rnb-text-end -->
 </div>
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiaHcwNCIKYXV0aG9yOiAiVGluZyBBbiBMYWkiCmRhdGU6ICcyMDE5LTEwLTE0JwpvdXRwdXQ6CiMgIGh0bWxfZG9jdW1lbnQ6CiMgICAgZGZfcHJpbnQ6IHBhZ2VkCiMgICAgdG9jOiB5ZXMKICBodG1sX25vdGVib29rOgogICAgdG9jOiB5ZXMKLS0tCgojIDEuIEZ1bmN0aW9ucyBpbiB0aGUgZHBseXIgUGFja2FnZQpgYGB7cn0KIyBNYWtpbmcgc3VyZSB3ZSBhbGwgaGF2ZSB0aGUgc2FtZSB2ZXJzaW9uLiBQbGVhc2UgZXhlY3V0ZSBjaHVuayBvbmNlLgojaW5zdGFsbC5wYWNrYWdlcygiZGV2dG9vbHMiKQojZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJ0aWR5dmVyc2UvZHBseXIiKQoKYGBgCgpgYGB7cn0KIyBHZXQgYWxsIGZ1bmN0aW9ucyBpbiBkcGx5cgpsaWJyYXJ5KGRwbHlyKQpgYGAKCmBgYHtyfQpjb250ZW50IDwtIG1nZXQobHMoInBhY2thZ2U6ZHBseXIiKSwgaW5oZXJpdHMgPSBUUlVFKQpkcGx5cl9mdW5jdGlvbnMgPC0gRmlsdGVyKGlzLmZ1bmN0aW9uLCBjb250ZW50KQpgYGAKCmEpIExvbmdlc3QgbmFtZQoKVXNlIHRoZSBhcHByb3ByaWF0ZSBtYXAgZnVuY3Rpb24gdG8gcHJvZHVjZSBhIHZlY3RvciBvZiB0aGUgbmFtZXMgb2YgYWxsIGZ1bmN0aW9ucyBpbiB0aGUgZHBseXIgcGFja2FnZS4gV2hpY2ggZnVuY3Rpb24gaGFzIHRoZSBsb25nZXN0IG5hbWU/Cgpncm91cF9ieV9kcm9wX2RlZmF1bHQKYGBge3J9CmxpYnJhcnkgKHB1cnJyKQpmdW5fbmFtZV9sZW4gPSBtYXBfaW50IChuYW1lcyAoZHBseXJfZnVuY3Rpb25zKSwgbmNoYXIpCmxvbmdlc3RfbmFtZV9pbmRleCA9IHNvcnQgKGZ1bl9uYW1lX2xlbiwgZGVjcmVhc2luZyA9IFRSVUUpWzFdCm5hbWVzIChkcGx5cl9mdW5jdGlvbnMpW2Z1bl9uYW1lX2xlbiA9PSBsb25nZXN0X25hbWVfaW5kZXhdCmBgYAoKYikgTnVtYmVyIG9mIGFyZ3VtZW50cwoKVXNlIHRoZSBhcHByb3ByaWF0ZSBtYXAgZnVuY3Rpb24gdG8gY2FsY3VsYXRlIHRoZSBudW1iZXIgb2YgYXJndW1lbnRzIGJ5IGZ1bmN0aW9uLiBQcmVzZW50IGEgdGFibGUgb2YgdGhlIFRvcCAxMCBmdW5jdGlvbnMgd2l0aCB0aGUgbW9zdCBhcmd1bWVudHMuIFdoaWNoIGZ1bmN0aW9uIGhhcyB0aGUgbW9zdCBhcmd1bWVudHM/IEhpbnQ6IFJlbWVtYmVyIHRoYXQgdGhlIGZ1bmN0aW9ucyBmb3JtYWxzKCksIGJvZHkoKSwgYW5kIGVudmlyb25tZW50KCkgYWxsb3cgeW91IHRvIGFjY2VzcyBwYXJ0cyBvZiBhIGZ1bmN0aW9uLgoKCnNxbF9zZWxlY3QgaGFzIHRoZSBtb3N0IGFyZ3VtZW50cywgMTAuICAKYGBge3J9CmZ1bl9hcmdfbGlzdCA9IG1hcCAoZHBseXJfZnVuY3Rpb25zW10sIGZvcm1hbHMgKQpmdW5fYXJnX2xlbmd0aCA9IG1hcCAoZnVuX2FyZ19saXN0W10sIGxlbmd0aCkKc29ydGVkX2FyZ19sZW5ndGggPSBzb3J0ICh1bmxpc3QgKGZ1bl9hcmdfbGVuZ3RoKSwgZGVjcmVhc2luZyA9IFRSVUUpCmBgYAoKCmBgYHtyfQphcy50YWJsZSAoc29ydGVkX2FyZ19sZW5ndGhbMToxMF0pCmBgYAoKYykgTW9zdCBjb21tb24gYXJndW1lbnQKCldoaWNoIGZ1bmN0aW9uIGFyZ3VtZW50cyBhcmUgdGhlIHRvcCA1IG1vc3QgY29tbW9uLiBCcmllZmx5IGV4cGxhaW4gd2hhdCB0aGUgbW9zdCBjb21tb24gYXJndW1lbnQgZG9lcz8KCjEuVGhlIG1vc3QgY29tbW9uIGFyZ3VtZW50IGlzIC4uLiB3aGljaCAgaXMgYWRkaXRpb25hbCBhcmd1bWVudHMgcGFzc2VkIG9uIHRvIHRoZSBmdW5jdGlvbi4KMi4gVGhlIHNlY29uZCBjb21tb24gYXJndW1lbnQgaXMgeCwgd2hpY2ggaXMgdGhlIG9iamVjdCB0aGF0IHRoZSBmdW5jdGlvbiBoYXMgbWFqb3IgZnVuY3Rpb24gb24uCjMuIFRoZSB0aGlyZCBjb21tb24gaXMgdGJsLCB3aGljaCBpcyB0YWJsZQo0LiBUaGUgZm91cnRoIGNvbW1vbiBpcyBkYXRhLCB3aGljaCBpcyB0aGUgZGF0YXNldCB0aGF0IHRoZSBtZXRob2QgaXMgZXhlcnRlZCBvbgo1LiBUaGUgZmlmdGggY29tbW9uIGlzIGZ1bnMsIHdoaWNoIGlzIGxpc3Qgb2YgZnVuY3Rpb21zLgoKYGBge3J9CmFsbF9hcmcgPSBnc3ViICgiLipcXC4iLCAnJywgbmFtZXMgKHVubGlzdCAoZnVuX2FyZ19saXN0KSkpCnNvcnQgKHRhYmxlIChhbGxfYXJnKSwgZGVjcmVhc2luZyA9IFRSVUUpIFsxOjVdCmBgYAoKIyAyLiBJbmZhbnQgTW9ydGFsaXR5IGFuZCBHUEQgcGVyIENhcGl0YQoKRm9yIHRoaXMgZXhlcmNpc2UsIHdlIHdpbGwgdXNlIGRhdGEgZnJvbSB0aGUgV29ybGQgQmFuayB0byBleHBsb3JlIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiBpbmZhbnQgbW9ydGFsaXR5IChpbmZtb3J0KSBhbmQgR1BEIHBlciBjYXBpdGEgKGdkcGNhcCkgb3ZlciB0aW1lICh5ZWFyKS4KCmEpIEhpZ2hlc3QgYW5kIGxvd2VzdCBpbmZhbnQgbW9ydGFsaXR5IHJhdGVzIGluIDIwMTgKClVzZSB0aGUgV0RJIHBhY2thZ2UgdG8gb2J0YWluIGNvdW50cnkteWVhciBkYXRhIG9uIGluZmFudCBtb3J0YWxpdHkgYW5kIEdEUCBwZXIgY2FwaXRhIGZyb20gdGhlIFdvcmxkIEJhbmsgZGF0YWJhc2UuCgpgYGB7cn0KI2luc3RhbGwucGFja2FnZXMoJ1dESScpCmxpYnJhcnkoV0RJKQpkZiA9IFdESShjb3VudHJ5ID0gImFsbCIsIGluZGljYXRvciA9IGMgKCJOWS5HRFAuUENBUC5QUC5LRCIsICJTUC5EWU4uSU1SVC5JTiIpLCBzdGFydCA9IDE5NjAsIGVuZCA9IDIwMTgsIGV4dHJhID0gVFJVRSwgY2FjaGUgPSBOVUxMKQoKYGBgCgpUaGUgaW5kaWNhdG9yIHNob3J0IG5hbWVzIGluIHRoZSBXb3JsZCBEZXZlbG9wbWVudCBJbmRpY2F0b3JzIGFyZToKCk5ZLkdEUC5QQ0FQLlBQLktEIC0gR0RQIHBlciBjYXBpdGEsIFBQUCAoY29uc3RhbnQgMjAwNSBpbnRlcm5hdGlvbmFsKQpTUC5EWU4uSU1SVC5JTiAtIE1vcnRhbGl0eSByYXRlLCBpbmZhbnQgKHBlciAxLDAwMCBsaXZlIGJpcnRocykKTWFrZSBzdXJlIHRvIG9idGFpbiBpbmZvcm1hdGlvbiBhYm91dCB0aGUgcmVnaW9uIG9mIHRoZSBjb3VudHJ5IGFzIHdlbGwgKHVzaW5nIHRoZSBleHRyYT1UUlVFIG9wdGlvbiBpbiB0aGUgV0RJKCkgY29tbWFuZCkuIFNwZWNpZnkgdGhlIHJlcXVlc3RlZCByYW5nZSBvZiB5ZWFycyBmcm9tIDE5NjAgdG8gMjAxOC4KCiMjIyBSZW5hbWUgdGhlIHZhcmlhYmxlczogaW5mYW50IG1vcnRhbGl0eSAoaW5mbW9ydCkgYW5kIEdQRCBwZXIgY2FwaXRhIChnZHBjYXApLiBLZWVwIG9ubHkgZW50cmllcyBmb3IgY291bnRyaWVzIChpLmUuIHJlbW92ZSBlbnRyaWVzIGZvciByZWdpb25zIGFuZCB0aGUgV29ybGQgYXMgYSB3aG9sZSkuCgpgYGB7cn0KY29sbmFtZXMoZGYpWyhuYW1lcyhkZikgPT0gIk5ZLkdEUC5QQ0FQLlBQLktEIildIDwtICJpbmZtb3J0Igpjb2xuYW1lcyhkZilbKG5hbWVzKGRmKSA9PSAiU1AuRFlOLklNUlQuSU4iKV0gPC0gImdkcGNhcCIKZGYgPC0gc3Vic2V0KGRmLCByZWdpb24gIT0gIkFnZ3JlZ2F0ZXMiKSAgCmBgYAoKClByZXNlbnQgYSBsaXN0IG9mIGNvdW50cmllcyB3aXRoIHRoZSA1IGhpZ2hlc3QgYW5kIHRoZSA1IGxvd2VzdCBpbmZhbnQgbW9ydGFsaXR5IHJhdGVzIGluIDIwMTggYWxvbmcgd2l0aCB0aGVpciBHRFAgcGVyIGNhcGl0YSBpbiB0aGF0IHllYXIuCgpgYGB7cn0Kc3ViZGYgPC0gZGYgJT4lCiAgZmlsdGVyICh5ZWFyID09IDIwMTgpICU+JQogIHNlbGVjdCAoImNvdW50cnkiLCAieWVhciIsICJpbmZtb3J0IiwgImdkcGNhcCIpICU+JQogIG5hLm9taXQgKCkKCgpGaXZlTG93ZXN0ID0gc3ViZGZbb3JkZXIoc3ViZGYkaW5mbW9ydClbMTo1XSxjICgiY291bnRyeSIsICJ5ZWFyIiwgImluZm1vcnQiLCAiZ2RwY2FwIildCkZpdmVIaWdoZXN0ID0gc3ViZGZbb3JkZXIoc3ViZGYkaW5mbW9ydCwgZGVjcmVhc2luZyA9IFRSVUUpWzE6NV0sYyAoImNvdW50cnkiLCAieWVhciIsICJpbmZtb3J0IiwgImdkcGNhcCIpXQpgYGAKCmBgYHtyfQpGaXZlTG93ZXN0CmBgYAoKYGBge3J9CkZpdmVIaWdoZXN0CmBgYAoKYikgT3ZlcmFsbCByZWdyZXNzaW9uClJ1biBhbiBvdmVyYWxsIHJlZ3Jlc3Npb24gcHJlZGljdGluZyBpbmZhbnQgbW9ydGFsaXR5IGZyb20gR0RQIHBlciBjYXBpdGEuIFdoYXQgZG8geW91IGZpbmQ/IE1ha2UgYSBzY2F0dGVyIHBsb3QgKGluY2x1ZGluZyBhIHJlZ3Jlc3Npb24gZml0IGxpbmUpLgoKClRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiBHRFAgYW5kIGluZmFudCBtb3J0YWxpdHkgaXMgbmVnYXRpdmUuIEhvd2V2ZXIsIHRoZSBsaW5lYXIgcmVsYXRpbm9zaGlwIG1pZ2h0IG5vdCBiZSB0aGUgYmVzdCBmb3IgZGVzY3JpYmluZyB0aGUgbmVnYXRpdmUgcmVsYXRpb25zaGlwLgpgYGB7cn0Kc3VicmVnIDwtIGRmICU+JQogIHNlbGVjdCAoImNvdW50cnkiLCAieWVhciIsICJpbmZtb3J0IiwgImdkcGNhcCIpICU+JQogIG5hLm9taXQKCnJlZyA9IGxtIChzdWJyZWckaW5mbW9ydCB+c3VicmVnJGdkcGNhcCkKCmxpYnJhcnkoZ2dwbG90MikKZ2dwbG90KHN1YnJlZywgYWVzKHggPSBnZHBjYXAsIHkgPSBpbmZtb3J0KSkgKyAKICBnZW9tX3BvaW50KCkgKwogIGdlb21fc21vb3RoKG1ldGhvZD0nbG0nLGZvcm11bGE9eX54KQpgYGAKCgpjKSBSZWdyZXNzaW9uIGJ5IHJlZ2lvbgoKTGV0J3Mgc2VlIGlmIHRoZSBvdmVyYWxsIHJlbGF0aW9uc2hpcCBob2xkcyB3aXRoaW4gd29ybGQgcmVnaW9ucy4gU3BsaXQgdGhlIHRoZSBkYXRhIGJ5IHJlZ2lvbiBhbmQgY3JlYXRlIGEgbmVzdGVkIGxpc3QgdGhhdCBjb250YWlucyB0aGVzZSBzcGxpdCBkYXRhIGZyYW1lcy4gSW4gYSBzaW5nbGUgcGlwZWxpbmUsIHJlLWVzdGltYXRlIHRoZSByZWdyZXNzaW9uIGZvciBlYWNoIG9mIHRoZXNlIGRhdGEgZnJhbWVzLCBvYnRhaW4gdGhlIGNvZWZmaWNpZW50IGVzdGltYXRlcyBmb3IgdGhlIHNsb3BlIGZvciBlYWNoIHJlZ2lvbiBhbmQgcHJlc2VudCB0aGVtIGluIGEgdGFibGUgKHNvcnRlZCBieSBzaXplIG9mIHRoZSBjb2VmZmljaWVudCkuCgpgYGB7cn0KCmRmJHJlZ2lvbiA8LSBmYWN0b3IgKGRmJHJlZ2lvbikKCnN1YnJlZ2lvbiA8LSBkZgpyZWdpb25fY29lZiA8LXN1YnJlZ2lvbiAgJT4lCiAgc2VsZWN0ICgnaW5mbW9ydCcsICdnZHBjYXAnLCAncmVnaW9uJykgJT4lCiAgbmEub21pdCAoKSAgJT4lCiAgc3BsaXQgKCBzdWJyZWdpb24kcmVnaW9uKSAlPiUKICBtYXAgKH5sbSAoaW5mbW9ydCB+Z2RwY2FwLCBkYXRhID0uKSwgc2FmZWx5KHN1YnJlZ2lvbikpICU+JQogIG1hcCAofmNvZWYgKC4pKSAlPiUKICBtYXBfZGJsICgnZ2RwY2FwJykgJT4lCiAgc29ydCAoKQogIAoKcmVnaW9uX2NvZWYKYGBgCgpkKSBSZWdyZXNzaW9uIGJ5IGNvdW50cnkKCkxldCdzIGFsc28gY2hlY2sgaWYgdGhlIHJlbGF0aW9uc2hpcCBpcyBjb25zaXN0ZW50IGlmIGVzdGltYXRlZCB3aXRoaW4gY291bnRyaWVzLiBTcGxpdCB0aGUgb3ZlcmFsbCBkYXRhIGJ5IGNvdW50cnkgYW5kIGNyZWF0ZSBhIG5lc3RlZCBsaXN0IHRoYXQgY29udGFpbnMgdGhlc2Ugc3BsaXQgZGF0YSBmcmFtZXMuCgpgYGB7cn0KIyBkYXRhZnJhbWUgcHJlcHJvY2Vzc2luZwpzdWJjb3VudCA8LSBkZgp0ID0gdGFibGUgKHN1YmNvdW50JGNvdW50cnkpCmxldmVscyhzdWJjb3VudCRjb3VudHJ5KSA8LSBuYW1lcyAodCkKc3ViY291bnQgPC0gbmEub21pdCAoc3ViY291bnQpCgoKIyBwaXBlbGluZQpjb2VmX3JhbmsgPC0gc3ViY291bnQgJT4lCiAgc3BsaXQoc3ViY291bnQkY291bnRyeSkgJT4lCiAgbWFwICh+bG0gKGluZm1vcnQgfmdkcGNhcCwgZGF0YSA9LiksIHNhZmVseSAoY29lZl9yYW5rKSkgJT4lCiAgbWFwICh+Y29lZiAoLikpICU+JQogIG1hcF9kYmwgKCdnZHBjYXAnKSAlPiUKICBzb3J0IChkZWNyZWFzaW5nID0gVFJVRSkKCiMgc3VtbWFyeSAKY29lZl9yYW5rX3N1bW1hcnkgPC0gc3ViY291bnQgJT4lCiAgc3BsaXQoc3ViY291bnQkY291bnRyeSkgJT4lCiAgbWFwICh+bG0gKGluZm1vcnQgfmdkcGNhcCwgZGF0YSA9LiksIHNhZmVseSAoY29lZl9yYW5rKSkgJT4lCiAgbWFwICh+c3VtbWFyeSAoLikpICU+JQogIG1hcF9kYmwoJ2Fkai5yLnNxdWFyZWQnKQoKCiNjaGVjayBjb25mIGludGVydmFsCmNvbmZpbl9yYW5rIDwtIHN1YmNvdW50ICU+JQogIHNwbGl0KHN1YmNvdW50JGNvdW50cnkpICU+JQogIG1hcCAofmxtIChpbmZtb3J0IH5nZHBjYXAsIGRhdGEgPS4pKSAlPiUKICBtYXAgKH5zdW1tYXJ5ICguKSkgJT4lCiAgbWFwIChjb25maW50KQoKY29lZl9yYW5rCgpgYGAKCkFnYWluLCBlc3RpbWF0ZSBhIHNpbXBsZSBsaW5lYXIgcmVncmVzc2lvbiwgcHJlZGljdGluZyBpbmZhbnQgbW9ydGFsaXR5IGJ5IEdEUCBwZXIgY2FwaXRhLiBJbiB3aGF0IHBlcmNlbnRhZ2Ugb2YgdGhlIHdpdGhpbi1jb3VudHJ5IHJlZ3Jlc3Npb25zIGRvIHdlIGZpbmQgYSBwb3NpdGl2ZSByZWxhdGlvbnNoaXAgKGF0IHRoZSA5NSUgY29uZmlkZW5jZSBsZXZlbCkgYmV0d2VlbiBHRFAgcGVyIGNhcGl0YSBhbmQgaW5mYW50IG1vcnRhbGl0eT8KCjcuNTcgJQoKYGBge3J9CnN1bShjb2VmX3JhbmsgPiAwKSAvIGxlbmd0aCAoY29lZl9yYW5rKSAqMTAwCmBgYAoKCk1ha2UgYSBoaXN0b2dyYW0gb2YgdGhlIHNsb3BlIGNvZWZmaWNpZW50cyB0byBpbGx1c3RyYXRlIHRoZSB2YXJpYXRpb24gb2YgdGhlIGVzdGltYXRlZCByZWxhdGlvbnNoaXAuIFdoaWNoIGNvdW50cnkgY2FzZXMgYXJlIG1vc3QgYXQgb2RkcyB3aXRoIHRoZSBvdmVyYWxsIHJlZ3Jlc3Npb24gZXN0aW1hdGVkIGluIHBhcnQgKGIpPwoKYGBge3IsIG1lc3NhZ2UgPSBGQUxTRSwgd2FybmluZz1GQUxTRX0KY29lZl9kZiA9IGFzLmRhdGEuZnJhbWUoY29lZl9yYW5rKQoKZyA8LSBnZ3Bsb3QoY29lZl9kZiwgYWVzKHg9Y29lZl9yYW5rKSkgKyAKICBnZW9tX2hpc3RvZ3JhbSgpICsKICB4bGFiICgiY29lZiIpIApnCmBgYAoKCgpTaW5nYXBvcmUncyAgY29lZmZpY2llbnRzIGlzIHRoZSBtb3N0IGF0IG9kZHMgd2l0aCB0aGUgb3ZlcmFsbCBjb2VmZmljaWVudHMKYGBge3J9CnJlZ19jb2VmID0gc3VtbWFyeSAocmVnKSRjb2VmZmljaWVudHNbMl0KaW50ID0gY29lZl9yYW5rIC0gcmVnX2NvZWYgCmFiX2ludCA9IGFicyAoaW50ICkKc29ydCAoYWJfaW50LCBkZWNyZWFzaW5nID0gVFJVRSkKYGBgCgoKCmUpIEFkZGVkIHNxdWFyZWQgdGVybQoKTGV0J3Mgc2VlIGlmIHdlIGNhbiBpbXByb3ZlIHRoZSBtb2RlbHMgc2xpZ2h0bHkuIFVzaW5nIHRoZSBsaXN0IG9mIGNvdW50cnkgZGF0YSBmcmFtZXMgZnJvbSAoZCksIGVzdGltYXRlIHJlZ3Jlc3Npb25zIG9mIGluZmFudCBtb3J0YWxpdHkgb24gR0RQIHBlciBjYXBpdGEgYW5kIHRoZSBzcXVhcmUgb2YgR0RQIHBlciBjYXBpdGEuIAoKQ29tcGFyZSB0aGUgYWRqdXN0ZWQgUi1TcXVhcmVkcyBvZiB0aGUgbW9kZWxzIHdpdGggYW5kIHdpdGhvdXQgdGhlIGFkZGVkIHNxdWFyZWQgdGVybSBvZiBHRFAgcGVyIGNhcGl0YS4gCgpUaGUgYWRqdXN0ZWQgUi1zcXVhcmVkIHdpdGhvdXQgYWRkZWQgc3F1YXJlZCB0ZXJtIGhhZCBpbiBnZW5lcmFsIGEgbG93ZXIgYWRqdXN0ZWQgci1zcXVhcmVkIHNjb3JlLgoKYGBge3J9CgphZGpyX3Jhbmtfc3FyIDwtIHN1YmNvdW50ICU+JQogIHNwbGl0KHN1YmNvdW50JGNvdW50cnkpICU+JQogIG1hcCAofmxtIChpbmZtb3J0IH4gc3FydCAoZ2RwY2FwKSArIGdkcGNhcCwgZGF0YSA9LiksIHNhZmVseSAoYWRqcl9yYW5rX3NxcikpICAlPiUKICBtYXAgKH5zdW1tYXJ5ICguKSkgJT4lCiAgbWFwICgnYWRqLnIuc3F1YXJlZCcpCgoKIyBzdHIgKGNvZWZfcmFua19zcXIpCmFkanJfcmFua19zcXIgPSB1bmxpc3QgKGFkanJfcmFua19zcXIpCmFkanJfd2l0aG91dF9zcXIgPSAgY29lZl9yYW5rX3N1bW1hcnkKYWRqcl9yYW5rX3NxciBbMToxNV0KYGBgCgpgYGB7cn0KYWRqcl93aXRob3V0X3NxciBbMToxNV0KYGBgClByb3ZpZGUgdGhlIGF2ZXJhZ2UgbW9kZWwgYWRqdXN0ZWQgUi1zcXVhcmVkIHdpdGggYW5kIHdpdGhvdXQgdGhlIHNxdWFyZWQgdGVybS4gV291bGQgeW91IHJlY29tbWVuZCB0byBrZWVwIHRoZSBzcXVhcmVkIHRlcm0gb3Igbm90PwoKClllcy4gVGhlIGFkanVzdGVkIHItc3F1YXJlZCB3aXRoIHNxdXJlZCB0ZXJtIGlzIDAuNzggd2hpY2ggaXMgbXVjaCBoaWdoZXIgdGhhbiB0aGUgYWRqdXN0ZWQgci1zcXVyZWQgd2l0aG91dCB0aGUgc3F1YXJlZCB0ZXJtLCAgMC42Ni4KYGBge3J9Cm1lYW4gKGFkanJfcmFua19zcXIpCmBgYAoKYGBge3J9Cm1lYW4gKGFkanJfd2l0aG91dF9zcXIpCmBgYAoKCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiaHcwNCIKYXV0aG9yOiAiVGluZyBBbiBMYWkiCmRhdGU6ICcyMDE5LTEwLTE0JwpvdXRwdXQ6CiMgIGh0bWxfZG9jdW1lbnQ6CiMgICAgZGZfcHJpbnQ6IHBhZ2VkCiMgICAgdG9jOiB5ZXMKICBodG1sX25vdGVib29rOgogICAgdG9jOiB5ZXMKLS0tCgojIDEuIEZ1bmN0aW9ucyBpbiB0aGUgZHBseXIgUGFja2FnZQpgYGB7cn0KIyBNYWtpbmcgc3VyZSB3ZSBhbGwgaGF2ZSB0aGUgc2FtZSB2ZXJzaW9uLiBQbGVhc2UgZXhlY3V0ZSBjaHVuayBvbmNlLgojaW5zdGFsbC5wYWNrYWdlcygiZGV2dG9vbHMiKQojZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCJ0aWR5dmVyc2UvZHBseXIiKQoKYGBgCgpgYGB7cn0KIyBHZXQgYWxsIGZ1bmN0aW9ucyBpbiBkcGx5cgpsaWJyYXJ5KGRwbHlyKQpgYGAKCmBgYHtyfQpjb250ZW50IDwtIG1nZXQobHMoInBhY2thZ2U6ZHBseXIiKSwgaW5oZXJpdHMgPSBUUlVFKQpkcGx5cl9mdW5jdGlvbnMgPC0gRmlsdGVyKGlzLmZ1bmN0aW9uLCBjb250ZW50KQpgYGAKCiMjIyMgYSkgTG9uZ2VzdCBuYW1lCgojIyMjIFVzZSB0aGUgYXBwcm9wcmlhdGUgbWFwIGZ1bmN0aW9uIHRvIHByb2R1Y2UgYSB2ZWN0b3Igb2YgdGhlIG5hbWVzIG9mIGFsbCBmdW5jdGlvbnMgaW4gdGhlIGRwbHlyIHBhY2thZ2UuIFdoaWNoIGZ1bmN0aW9uIGhhcyB0aGUgbG9uZ2VzdCBuYW1lPwoKZ3JvdXBfYnlfZHJvcF9kZWZhdWx0CmBgYHtyfQpsaWJyYXJ5IChwdXJycikKZnVuX25hbWVfbGVuID0gbWFwX2ludCAobmFtZXMgKGRwbHlyX2Z1bmN0aW9ucyksIG5jaGFyKQpsb25nZXN0X25hbWVfaW5kZXggPSBzb3J0IChmdW5fbmFtZV9sZW4sIGRlY3JlYXNpbmcgPSBUUlVFKVsxXQpuYW1lcyAoZHBseXJfZnVuY3Rpb25zKVtmdW5fbmFtZV9sZW4gPT0gbG9uZ2VzdF9uYW1lX2luZGV4XQpgYGAKCiMjIyMgYikgTnVtYmVyIG9mIGFyZ3VtZW50cwoKIyMjIyBVc2UgdGhlIGFwcHJvcHJpYXRlIG1hcCBmdW5jdGlvbiB0byBjYWxjdWxhdGUgdGhlIG51bWJlciBvZiBhcmd1bWVudHMgYnkgZnVuY3Rpb24uIFByZXNlbnQgYSB0YWJsZSBvZiB0aGUgVG9wIDEwIGZ1bmN0aW9ucyB3aXRoIHRoZSBtb3N0IGFyZ3VtZW50cy4gV2hpY2ggZnVuY3Rpb24gaGFzIHRoZSBtb3N0IGFyZ3VtZW50cz8gSGludDogUmVtZW1iZXIgdGhhdCB0aGUgZnVuY3Rpb25zIGZvcm1hbHMoKSwgYm9keSgpLCBhbmQgZW52aXJvbm1lbnQoKSBhbGxvdyB5b3UgdG8gYWNjZXNzIHBhcnRzIG9mIGEgZnVuY3Rpb24uCgoKc3FsX3NlbGVjdCBoYXMgdGhlIG1vc3QgYXJndW1lbnRzLCAxMC4gIApgYGB7cn0KZnVuX2FyZ19saXN0ID0gbWFwIChkcGx5cl9mdW5jdGlvbnNbXSwgZm9ybWFscyApCmZ1bl9hcmdfbGVuZ3RoID0gbWFwIChmdW5fYXJnX2xpc3RbXSwgbGVuZ3RoKQpzb3J0ZWRfYXJnX2xlbmd0aCA9IHNvcnQgKHVubGlzdCAoZnVuX2FyZ19sZW5ndGgpLCBkZWNyZWFzaW5nID0gVFJVRSkKYGBgCgoKYGBge3J9CmFzLnRhYmxlIChzb3J0ZWRfYXJnX2xlbmd0aFsxOjEwXSkKYGBgCgojIyMjIGMpIE1vc3QgY29tbW9uIGFyZ3VtZW50CgojIyMjIFdoaWNoIGZ1bmN0aW9uIGFyZ3VtZW50cyBhcmUgdGhlIHRvcCA1IG1vc3QgY29tbW9uLiBCcmllZmx5IGV4cGxhaW4gd2hhdCB0aGUgbW9zdCBjb21tb24gYXJndW1lbnQgZG9lcz8KCjEuVGhlIG1vc3QgY29tbW9uIGFyZ3VtZW50IGlzIC4uLiB3aGljaCAgaXMgYWRkaXRpb25hbCBhcmd1bWVudHMgcGFzc2VkIG9uIHRvIHRoZSBmdW5jdGlvbi4KMi4gVGhlIHNlY29uZCBjb21tb24gYXJndW1lbnQgaXMgeCwgd2hpY2ggaXMgdGhlIG9iamVjdCB0aGF0IHRoZSBmdW5jdGlvbiBoYXMgbWFqb3IgZnVuY3Rpb24gb24uCjMuIFRoZSB0aGlyZCBjb21tb24gaXMgdGJsLCB3aGljaCBpcyB0YWJsZQo0LiBUaGUgZm91cnRoIGNvbW1vbiBpcyBkYXRhLCB3aGljaCBpcyB0aGUgZGF0YXNldCB0aGF0IHRoZSBtZXRob2QgaXMgZXhlcnRlZCBvbgo1LiBUaGUgZmlmdGggY29tbW9uIGlzIGZ1bnMsIHdoaWNoIGlzIGxpc3Qgb2YgZnVuY3Rpb21zLgoKYGBge3J9CmFsbF9hcmcgPSBnc3ViICgiLipcXC4iLCAnJywgbmFtZXMgKHVubGlzdCAoZnVuX2FyZ19saXN0KSkpCnNvcnQgKHRhYmxlIChhbGxfYXJnKSwgZGVjcmVhc2luZyA9IFRSVUUpIFsxOjVdCmBgYAoKIyAyLiBJbmZhbnQgTW9ydGFsaXR5IGFuZCBHUEQgcGVyIENhcGl0YQojIyMjIGEpIEhpZ2hlc3QgYW5kIGxvd2VzdCBpbmZhbnQgbW9ydGFsaXR5IHJhdGVzIGluIDIwMTgKYGBge3J9CiNpbnN0YWxsLnBhY2thZ2VzKCdXREknKQpsaWJyYXJ5KFdESSkKZGYgPSBXREkoY291bnRyeSA9ICJhbGwiLCBpbmRpY2F0b3IgPSBjICgiTlkuR0RQLlBDQVAuUFAuS0QiLCAiU1AuRFlOLklNUlQuSU4iKSwgc3RhcnQgPSAxOTYwLCBlbmQgPSAyMDE4LCBleHRyYSA9IFRSVUUsIGNhY2hlID0gTlVMTCkKCmBgYAoKIyMjIFJlbmFtZSB0aGUgdmFyaWFibGVzOiBpbmZhbnQgbW9ydGFsaXR5IChpbmZtb3J0KSBhbmQgR1BEIHBlciBjYXBpdGEgKGdkcGNhcCkuIEtlZXAgb25seSBlbnRyaWVzIGZvciBjb3VudHJpZXMgKGkuZS4gcmVtb3ZlIGVudHJpZXMgZm9yIHJlZ2lvbnMgYW5kIHRoZSBXb3JsZCBhcyBhIHdob2xlKS4KCmBgYHtyfQpjb2xuYW1lcyhkZilbKG5hbWVzKGRmKSA9PSAiTlkuR0RQLlBDQVAuUFAuS0QiKV0gPC0gImluZm1vcnQiCmNvbG5hbWVzKGRmKVsobmFtZXMoZGYpID09ICJTUC5EWU4uSU1SVC5JTiIpXSA8LSAiZ2RwY2FwIgpkZiA8LSBzdWJzZXQoZGYsIHJlZ2lvbiAhPSAiQWdncmVnYXRlcyIpICAKYGBgCgoKIyMjIyBQcmVzZW50IGEgbGlzdCBvZiBjb3VudHJpZXMgd2l0aCB0aGUgNSBoaWdoZXN0IGFuZCB0aGUgNSBsb3dlc3QgaW5mYW50IG1vcnRhbGl0eSByYXRlcyBpbiAyMDE4IGFsb25nIHdpdGggdGhlaXIgR0RQIHBlciBjYXBpdGEgaW4gdGhhdCB5ZWFyLgoKYGBge3J9CnN1YmRmIDwtIGRmICU+JQogIGZpbHRlciAoeWVhciA9PSAyMDE4KSAlPiUKICBzZWxlY3QgKCJjb3VudHJ5IiwgInllYXIiLCAiaW5mbW9ydCIsICJnZHBjYXAiKSAlPiUKICBuYS5vbWl0ICgpCgoKRml2ZUxvd2VzdCA9IHN1YmRmW29yZGVyKHN1YmRmJGluZm1vcnQpWzE6NV0sYyAoImNvdW50cnkiLCAieWVhciIsICJpbmZtb3J0IiwgImdkcGNhcCIpXQpGaXZlSGlnaGVzdCA9IHN1YmRmW29yZGVyKHN1YmRmJGluZm1vcnQsIGRlY3JlYXNpbmcgPSBUUlVFKVsxOjVdLGMgKCJjb3VudHJ5IiwgInllYXIiLCAiaW5mbW9ydCIsICJnZHBjYXAiKV0KYGBgCgpgYGB7cn0KRml2ZUxvd2VzdApgYGAKCmBgYHtyfQpGaXZlSGlnaGVzdApgYGAKCiMjIyMgYikgT3ZlcmFsbCByZWdyZXNzaW9uCiMjIyMgUnVuIGFuIG92ZXJhbGwgcmVncmVzc2lvbiBwcmVkaWN0aW5nIGluZmFudCBtb3J0YWxpdHkgZnJvbSBHRFAgcGVyIGNhcGl0YS4gV2hhdCBkbyB5b3UgZmluZD8gTWFrZSBhIHNjYXR0ZXIgcGxvdCAoaW5jbHVkaW5nIGEgcmVncmVzc2lvbiBmaXQgbGluZSkuCgoKVGhlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIEdEUCBhbmQgaW5mYW50IG1vcnRhbGl0eSBpcyBuZWdhdGl2ZS4gSG93ZXZlciwgdGhlIGxpbmVhciByZWxhdGlub3NoaXAgbWlnaHQgbm90IGJlIHRoZSBiZXN0IGZvciBkZXNjcmliaW5nIHRoZSBuZWdhdGl2ZSByZWxhdGlvbnNoaXAuCmBgYHtyfQpzdWJyZWcgPC0gZGYgJT4lCiAgc2VsZWN0ICgiY291bnRyeSIsICJ5ZWFyIiwgImluZm1vcnQiLCAiZ2RwY2FwIikgJT4lCiAgbmEub21pdAoKcmVnID0gbG0gKHN1YnJlZyRpbmZtb3J0IH5zdWJyZWckZ2RwY2FwKQoKbGlicmFyeShnZ3Bsb3QyKQpnZ3Bsb3Qoc3VicmVnLCBhZXMoeCA9IGdkcGNhcCwgeSA9IGluZm1vcnQpKSArIAogIGdlb21fcG9pbnQoKSArCiAgZ2VvbV9zbW9vdGgobWV0aG9kPSdsbScsZm9ybXVsYT15fngpCmBgYAoKCiMjIyMgYykgUmVncmVzc2lvbiBieSByZWdpb24KCiMjIyMgTGV0J3Mgc2VlIGlmIHRoZSBvdmVyYWxsIHJlbGF0aW9uc2hpcCBob2xkcyB3aXRoaW4gd29ybGQgcmVnaW9ucy4gU3BsaXQgdGhlIHRoZSBkYXRhIGJ5IHJlZ2lvbiBhbmQgY3JlYXRlIGEgbmVzdGVkIGxpc3QgdGhhdCBjb250YWlucyB0aGVzZSBzcGxpdCBkYXRhIGZyYW1lcy4gSW4gYSBzaW5nbGUgcGlwZWxpbmUsIHJlLWVzdGltYXRlIHRoZSByZWdyZXNzaW9uIGZvciBlYWNoIG9mIHRoZXNlIGRhdGEgZnJhbWVzLCBvYnRhaW4gdGhlIGNvZWZmaWNpZW50IGVzdGltYXRlcyBmb3IgdGhlIHNsb3BlIGZvciBlYWNoIHJlZ2lvbiBhbmQgcHJlc2VudCB0aGVtIGluIGEgdGFibGUgKHNvcnRlZCBieSBzaXplIG9mIHRoZSBjb2VmZmljaWVudCkuCgpgYGB7cn0KCmRmJHJlZ2lvbiA8LSBmYWN0b3IgKGRmJHJlZ2lvbikKCnN1YnJlZ2lvbiA8LSBkZgpyZWdpb25fY29lZiA8LXN1YnJlZ2lvbiAgJT4lCiAgc2VsZWN0ICgnaW5mbW9ydCcsICdnZHBjYXAnLCAncmVnaW9uJykgJT4lCiAgbmEub21pdCAoKSAgJT4lCiAgc3BsaXQgKCBzdWJyZWdpb24kcmVnaW9uKSAlPiUKICBtYXAgKH5sbSAoaW5mbW9ydCB+Z2RwY2FwLCBkYXRhID0uKSwgc2FmZWx5KHN1YnJlZ2lvbikpICU+JQogIG1hcCAofmNvZWYgKC4pKSAlPiUKICBtYXBfZGJsICgnZ2RwY2FwJykgJT4lCiAgc29ydCAoKQogIAoKcmVnaW9uX2NvZWYKYGBgCgojIyMjIGQpIFJlZ3Jlc3Npb24gYnkgY291bnRyeQoKIyMjIyBMZXQncyBhbHNvIGNoZWNrIGlmIHRoZSByZWxhdGlvbnNoaXAgaXMgY29uc2lzdGVudCBpZiBlc3RpbWF0ZWQgd2l0aGluIGNvdW50cmllcy4gU3BsaXQgdGhlIG92ZXJhbGwgZGF0YSBieSBjb3VudHJ5IGFuZCBjcmVhdGUgYSBuZXN0ZWQgbGlzdCB0aGF0IGNvbnRhaW5zIHRoZXNlIHNwbGl0IGRhdGEgZnJhbWVzLgoKYGBge3J9CiMgZGF0YWZyYW1lIHByZXByb2Nlc3NpbmcKc3ViY291bnQgPC0gZGYKdCA9IHRhYmxlIChzdWJjb3VudCRjb3VudHJ5KQpsZXZlbHMoc3ViY291bnQkY291bnRyeSkgPC0gbmFtZXMgKHQpCnN1YmNvdW50IDwtIG5hLm9taXQgKHN1YmNvdW50KQoKCiMgcGlwZWxpbmUKY29lZl9yYW5rIDwtIHN1YmNvdW50ICU+JQogIHNwbGl0KHN1YmNvdW50JGNvdW50cnkpICU+JQogIG1hcCAofmxtIChpbmZtb3J0IH5nZHBjYXAsIGRhdGEgPS4pLCBzYWZlbHkgKGNvZWZfcmFuaykpICU+JQogIG1hcCAofmNvZWYgKC4pKSAlPiUKICBtYXBfZGJsICgnZ2RwY2FwJykgJT4lCiAgc29ydCAoZGVjcmVhc2luZyA9IFRSVUUpCgojIHN1bW1hcnkgCmNvZWZfcmFua19zdW1tYXJ5IDwtIHN1YmNvdW50ICU+JQogIHNwbGl0KHN1YmNvdW50JGNvdW50cnkpICU+JQogIG1hcCAofmxtIChpbmZtb3J0IH5nZHBjYXAsIGRhdGEgPS4pLCBzYWZlbHkgKGNvZWZfcmFuaykpICU+JQogIG1hcCAofnN1bW1hcnkgKC4pKSAlPiUKICBtYXBfZGJsKCdhZGouci5zcXVhcmVkJykKCgojY2hlY2sgY29uZiBpbnRlcnZhbApjb25maW5fcmFuayA8LSBzdWJjb3VudCAlPiUKICBzcGxpdChzdWJjb3VudCRjb3VudHJ5KSAlPiUKICBtYXAgKH5sbSAoaW5mbW9ydCB+Z2RwY2FwLCBkYXRhID0uKSkgJT4lCiAgbWFwICh+c3VtbWFyeSAoLikpICU+JQogIG1hcCAoY29uZmludCkKCmNvZWZfcmFuawoKYGBgCgojIyMjIEFnYWluLCBlc3RpbWF0ZSBhIHNpbXBsZSBsaW5lYXIgcmVncmVzc2lvbiwgcHJlZGljdGluZyBpbmZhbnQgbW9ydGFsaXR5IGJ5IEdEUCBwZXIgY2FwaXRhLiBJbiB3aGF0IHBlcmNlbnRhZ2Ugb2YgdGhlIHdpdGhpbi1jb3VudHJ5IHJlZ3Jlc3Npb25zIGRvIHdlIGZpbmQgYSBwb3NpdGl2ZSByZWxhdGlvbnNoaXAgKGF0IHRoZSA5NSUgY29uZmlkZW5jZSBsZXZlbCkgYmV0d2VlbiBHRFAgcGVyIGNhcGl0YSBhbmQgaW5mYW50IG1vcnRhbGl0eT8KCjcuNTcgJQoKYGBge3J9CnN1bShjb2VmX3JhbmsgPiAwKSAvIGxlbmd0aCAoY29lZl9yYW5rKSAqMTAwCmBgYAoKCiMjIyMgTWFrZSBhIGhpc3RvZ3JhbSBvZiB0aGUgc2xvcGUgY29lZmZpY2llbnRzIHRvIGlsbHVzdHJhdGUgdGhlIHZhcmlhdGlvbiBvZiB0aGUgZXN0aW1hdGVkIHJlbGF0aW9uc2hpcC4gV2hpY2ggY291bnRyeSBjYXNlcyBhcmUgbW9zdCBhdCBvZGRzIHdpdGggdGhlIG92ZXJhbGwgcmVncmVzc2lvbiBlc3RpbWF0ZWQgaW4gcGFydCAoYik/CgpgYGB7ciwgbWVzc2FnZSA9IEZBTFNFLCB3YXJuaW5nPUZBTFNFfQpjb2VmX2RmID0gYXMuZGF0YS5mcmFtZShjb2VmX3JhbmspCgpnIDwtIGdncGxvdChjb2VmX2RmLCBhZXMoeD1jb2VmX3JhbmspKSArIAogIGdlb21faGlzdG9ncmFtKCkgKwogIHhsYWIgKCJjb2VmIikgCmcKYGBgCgoKClNpbmdhcG9yZSdzICBjb2VmZmljaWVudHMgaXMgdGhlIG1vc3QgYXQgb2RkcyB3aXRoIHRoZSBvdmVyYWxsIGNvZWZmaWNpZW50cwpgYGB7cn0KcmVnX2NvZWYgPSBzdW1tYXJ5IChyZWcpJGNvZWZmaWNpZW50c1syXQppbnQgPSBjb2VmX3JhbmsgLSByZWdfY29lZiAKYWJfaW50ID0gYWJzIChpbnQgKQpzb3J0IChhYl9pbnQsIGRlY3JlYXNpbmcgPSBUUlVFKQpgYGAKCgoKZSkgQWRkZWQgc3F1YXJlZCB0ZXJtCgojIyMjIExldCdzIHNlZSBpZiB3ZSBjYW4gaW1wcm92ZSB0aGUgbW9kZWxzIHNsaWdodGx5LiBVc2luZyB0aGUgbGlzdCBvZiBjb3VudHJ5IGRhdGEgZnJhbWVzIGZyb20gKGQpLCBlc3RpbWF0ZSByZWdyZXNzaW9ucyBvZiBpbmZhbnQgbW9ydGFsaXR5IG9uIEdEUCBwZXIgY2FwaXRhIGFuZCB0aGUgc3F1YXJlIG9mIEdEUCBwZXIgY2FwaXRhLiAKCiMjIyMgQ29tcGFyZSB0aGUgYWRqdXN0ZWQgUi1TcXVhcmVkcyBvZiB0aGUgbW9kZWxzIHdpdGggYW5kIHdpdGhvdXQgdGhlIGFkZGVkIHNxdWFyZWQgdGVybSBvZiBHRFAgcGVyIGNhcGl0YS4gCgpUaGUgYWRqdXN0ZWQgUi1zcXVhcmVkIHdpdGhvdXQgYWRkZWQgc3F1YXJlZCB0ZXJtIGhhZCBpbiBnZW5lcmFsIGEgbG93ZXIgYWRqdXN0ZWQgci1zcXVhcmVkIHNjb3JlLgoKYGBge3J9CgphZGpyX3Jhbmtfc3FyIDwtIHN1YmNvdW50ICU+JQogIHNwbGl0KHN1YmNvdW50JGNvdW50cnkpICU+JQogIG1hcCAofmxtIChpbmZtb3J0IH4gc3FydCAoZ2RwY2FwKSArIGdkcGNhcCwgZGF0YSA9LiksIHNhZmVseSAoYWRqcl9yYW5rX3NxcikpICAlPiUKICBtYXAgKH5zdW1tYXJ5ICguKSkgJT4lCiAgbWFwICgnYWRqLnIuc3F1YXJlZCcpCgoKIyBzdHIgKGNvZWZfcmFua19zcXIpCmFkanJfcmFua19zcXIgPSB1bmxpc3QgKGFkanJfcmFua19zcXIpCmFkanJfd2l0aG91dF9zcXIgPSAgY29lZl9yYW5rX3N1bW1hcnkKYWRqcl9yYW5rX3NxciBbMToxNV0KYGBgCgpgYGB7cn0KYWRqcl93aXRob3V0X3NxciBbMToxNV0KYGBgCiMjIyMgUHJvdmlkZSB0aGUgYXZlcmFnZSBtb2RlbCBhZGp1c3RlZCBSLXNxdWFyZWQgd2l0aCBhbmQgd2l0aG91dCB0aGUgc3F1YXJlZCB0ZXJtLiBXb3VsZCB5b3UgcmVjb21tZW5kIHRvIGtlZXAgdGhlIHNxdWFyZWQgdGVybSBvciBub3Q/CgoKSSB3b3VsZCByZWNvbW1lbmQgdG8ga2VlcCB0aGUgc3F1YXJlZCB0ZXJtIFRoZSBhZGp1c3RlZCByLXNxdWFyZWQgd2l0aCBzcXVyZWQgdGVybSBpcyAwLjc4IHdoaWNoIGlzIG11Y2ggaGlnaGVyIHRoYW4gdGhlIGFkanVzdGVkIHItc3F1cmVkIHdpdGhvdXQgdGhlIHNxdWFyZWQgdGVybSwgIDAuNjYuCmBgYHtyfQptZWFuIChhZGpyX3Jhbmtfc3FyKQpgYGAKCmBgYHtyfQptZWFuIChhZGpyX3dpdGhvdXRfc3FyKQpgYGAKCgoK</div>
 
 
 

@@ -28,9 +28,9 @@ content <- mget(ls("package:dplyr"), inherits = TRUE)
 dplyr_functions <- Filter(is.function, content)
 ```
 
-a) Longest name
+#### a) Longest name
 
-Use the appropriate map function to produce a vector of the names of all functions in the dplyr package. Which function has the longest name?
+#### Use the appropriate map function to produce a vector of the names of all functions in the dplyr package. Which function has the longest name?
 
 group_by_drop_default
 ```{r}
@@ -40,9 +40,9 @@ longest_name_index = sort (fun_name_len, decreasing = TRUE)[1]
 names (dplyr_functions)[fun_name_len == longest_name_index]
 ```
 
-b) Number of arguments
+#### b) Number of arguments
 
-Use the appropriate map function to calculate the number of arguments by function. Present a table of the Top 10 functions with the most arguments. Which function has the most arguments? Hint: Remember that the functions formals(), body(), and environment() allow you to access parts of a function.
+#### Use the appropriate map function to calculate the number of arguments by function. Present a table of the Top 10 functions with the most arguments. Which function has the most arguments? Hint: Remember that the functions formals(), body(), and environment() allow you to access parts of a function.
 
 
 sql_select has the most arguments, 10.  
@@ -57,9 +57,9 @@ sorted_arg_length = sort (unlist (fun_arg_length), decreasing = TRUE)
 as.table (sorted_arg_length[1:10])
 ```
 
-c) Most common argument
+#### c) Most common argument
 
-Which function arguments are the top 5 most common. Briefly explain what the most common argument does?
+#### Which function arguments are the top 5 most common. Briefly explain what the most common argument does?
 
 1.The most common argument is ... which  is additional arguments passed on to the function.
 2. The second common argument is x, which is the object that the function has major function on.
@@ -73,25 +73,13 @@ sort (table (all_arg), decreasing = TRUE) [1:5]
 ```
 
 # 2. Infant Mortality and GPD per Capita
-
-For this exercise, we will use data from the World Bank to explore the relationship between infant mortality (infmort) and GPD per capita (gdpcap) over time (year).
-
-a) Highest and lowest infant mortality rates in 2018
-
-Use the WDI package to obtain country-year data on infant mortality and GDP per capita from the World Bank database.
-
+#### a) Highest and lowest infant mortality rates in 2018
 ```{r}
 #install.packages('WDI')
 library(WDI)
 df = WDI(country = "all", indicator = c ("NY.GDP.PCAP.PP.KD", "SP.DYN.IMRT.IN"), start = 1960, end = 2018, extra = TRUE, cache = NULL)
 
 ```
-
-The indicator short names in the World Development Indicators are:
-
-NY.GDP.PCAP.PP.KD - GDP per capita, PPP (constant 2005 international)
-SP.DYN.IMRT.IN - Mortality rate, infant (per 1,000 live births)
-Make sure to obtain information about the region of the country as well (using the extra=TRUE option in the WDI() command). Specify the requested range of years from 1960 to 2018.
 
 ### Rename the variables: infant mortality (infmort) and GPD per capita (gdpcap). Keep only entries for countries (i.e. remove entries for regions and the World as a whole).
 
@@ -102,7 +90,7 @@ df <- subset(df, region != "Aggregates")
 ```
 
 
-Present a list of countries with the 5 highest and the 5 lowest infant mortality rates in 2018 along with their GDP per capita in that year.
+#### Present a list of countries with the 5 highest and the 5 lowest infant mortality rates in 2018 along with their GDP per capita in that year.
 
 ```{r}
 subdf <- df %>%
@@ -123,8 +111,8 @@ FiveLowest
 FiveHighest
 ```
 
-b) Overall regression
-Run an overall regression predicting infant mortality from GDP per capita. What do you find? Make a scatter plot (including a regression fit line).
+#### b) Overall regression
+#### Run an overall regression predicting infant mortality from GDP per capita. What do you find? Make a scatter plot (including a regression fit line).
 
 
 The relationship between GDP and infant mortality is negative. However, the linear relatinoship might not be the best for describing the negative relationship.
@@ -142,9 +130,9 @@ ggplot(subreg, aes(x = gdpcap, y = infmort)) +
 ```
 
 
-c) Regression by region
+#### c) Regression by region
 
-Let's see if the overall relationship holds within world regions. Split the the data by region and create a nested list that contains these split data frames. In a single pipeline, re-estimate the regression for each of these data frames, obtain the coefficient estimates for the slope for each region and present them in a table (sorted by size of the coefficient).
+#### Let's see if the overall relationship holds within world regions. Split the the data by region and create a nested list that contains these split data frames. In a single pipeline, re-estimate the regression for each of these data frames, obtain the coefficient estimates for the slope for each region and present them in a table (sorted by size of the coefficient).
 
 ```{r}
 
@@ -164,9 +152,9 @@ region_coef <-subregion  %>%
 region_coef
 ```
 
-d) Regression by country
+#### d) Regression by country
 
-Let's also check if the relationship is consistent if estimated within countries. Split the overall data by country and create a nested list that contains these split data frames.
+#### Let's also check if the relationship is consistent if estimated within countries. Split the overall data by country and create a nested list that contains these split data frames.
 
 ```{r}
 # dataframe preprocessing
@@ -203,7 +191,7 @@ coef_rank
 
 ```
 
-Again, estimate a simple linear regression, predicting infant mortality by GDP per capita. In what percentage of the within-country regressions do we find a positive relationship (at the 95% confidence level) between GDP per capita and infant mortality?
+#### Again, estimate a simple linear regression, predicting infant mortality by GDP per capita. In what percentage of the within-country regressions do we find a positive relationship (at the 95% confidence level) between GDP per capita and infant mortality?
 
 7.57 %
 
@@ -212,7 +200,7 @@ sum(coef_rank > 0) / length (coef_rank) *100
 ```
 
 
-Make a histogram of the slope coefficients to illustrate the variation of the estimated relationship. Which country cases are most at odds with the overall regression estimated in part (b)?
+#### Make a histogram of the slope coefficients to illustrate the variation of the estimated relationship. Which country cases are most at odds with the overall regression estimated in part (b)?
 
 ```{r, message = FALSE, warning=FALSE}
 coef_df = as.data.frame(coef_rank)
@@ -237,9 +225,9 @@ sort (ab_int, decreasing = TRUE)
 
 e) Added squared term
 
-Let's see if we can improve the models slightly. Using the list of country data frames from (d), estimate regressions of infant mortality on GDP per capita and the square of GDP per capita. 
+#### Let's see if we can improve the models slightly. Using the list of country data frames from (d), estimate regressions of infant mortality on GDP per capita and the square of GDP per capita. 
 
-Compare the adjusted R-Squareds of the models with and without the added squared term of GDP per capita. 
+#### Compare the adjusted R-Squareds of the models with and without the added squared term of GDP per capita. 
 
 The adjusted R-squared without added squared term had in general a lower adjusted r-squared score.
 
@@ -261,10 +249,10 @@ adjr_rank_sqr [1:15]
 ```{r}
 adjr_without_sqr [1:15]
 ```
-Provide the average model adjusted R-squared with and without the squared term. Would you recommend to keep the squared term or not?
+#### Provide the average model adjusted R-squared with and without the squared term. Would you recommend to keep the squared term or not?
 
 
-Yes. The adjusted r-squared with squred term is 0.78 which is much higher than the adjusted r-squred without the squared term,  0.66.
+I would recommend to keep the squared term The adjusted r-squared with squred term is 0.78 which is much higher than the adjusted r-squred without the squared term,  0.66.
 ```{r}
 mean (adjr_rank_sqr)
 ```
