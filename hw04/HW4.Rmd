@@ -13,8 +13,8 @@ output:
 # 1. Functions in the dplyr Package
 ```{r}
 # Making sure we all have the same version. Please execute chunk once.
-#install.packages("devtools")
-#devtools::install_github("tidyverse/dplyr")
+install.packages("devtools")
+devtools::install_github("tidyverse/dplyr")
 
 ```
 
@@ -75,7 +75,7 @@ sort (table (all_arg), decreasing = TRUE) [1:5]
 # 2. Infant Mortality and GPD per Capita
 #### a) Highest and lowest infant mortality rates in 2018
 ```{r}
-#install.packages('WDI')
+install.packages('WDI')
 library(WDI)
 df = WDI(country = "all", indicator = c ("NY.GDP.PCAP.PP.KD", "SP.DYN.IMRT.IN"), start = 1960, end = 2018, extra = TRUE, cache = NULL)
 
@@ -244,6 +244,9 @@ adjr_rank_sqr <- subcount %>%
 adjr_rank_sqr = unlist (adjr_rank_sqr)
 adjr_without_sqr =  coef_rank_summary
 adjr_rank_sqr [1:15]
+
+plot(adjr_rank_sqr,xlab="Car Weight ", ylab="Miles Per Gallon ", pch=19, col = 'red')
+points (adjr_without_sqr, col = "blue")
 ```
 
 ```{r}
