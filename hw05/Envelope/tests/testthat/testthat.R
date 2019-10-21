@@ -12,4 +12,3 @@ if (requireNamespace("lintr", quietly = TRUE)) {
     lintr::expect_lint_free()
   })
 }
-
