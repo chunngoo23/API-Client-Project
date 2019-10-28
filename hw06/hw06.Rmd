@@ -1,0 +1,272 @@
+---
+title: "QMSS G5072 Homework 6"
+author: "Ting An Lai"
+date: '2019-10-27'
+output:
+  html_notebook:
+    toc: yes
+  html_document:
+    df_print: paged
+    toc: yes
+---
+
+Working with Strings
+============================
+
+### 1. Scrabble
+
+For our first exercise, we will brush up on our Scrabble board game knowledge a bit.
+
+Follow the code below to download a scrabble world list.
+
+```{r}
+if (!require("stringr")) install.packages('stringr')
+if (!require("stringi")) install.packages('stringi')
+if (!require("ScrabbleScore")) install.packages('ScrabbleScore')
+library(stringr)
+library(stringi)
+library(ScrabbleScore)
+data(twl06)
+scrabble <- twl06
+```
+
+
+
+#### a) Words with `z`
+
+Select all words that contain at least one `z`. Among the z-words, tabulate how many `z`'s the words contain (i.e. how many words contain one `z`, two `z`'s etc.).
+
+```{r}
+#3View (twl06)
+# Count occurrences of "z" 
+number_z <- str_count(scrabble, "z")
+table(number_z)
+```
+
+
+#### b) Word lengths
+
+Provide a histogram of the word lengths in the scrabble dictionary.
+
+```{r}
+word_len <- str_length(scrabble)
+hist(word_len)
+
+```
+
+
+#### c) Vowels
+
+How many words both start and end with a vowel?
+
+```{r}
+
+str_subset(scrabble, pattern = "^[a|e|i|o|u|A|E|I|O|U].*(a|e|i|o|u|A|E|I|O|U)$") %>%
+  length()
+
+
+```
+
+
+#### d) Longest word with `New York`
+
+What is the longest scrabble word that can be formed just out of the letters contained in "New York" (repetitions of letters are allowed)?
+
+```{r}
+newyork_words <- str_subset(scrabble, pattern = "^[newyorkNEWYORK]+$")
+str(newyork_words)
+sort (str_length(newyork_words))
+newyork_words[str_length(newyork_words)==9]
+```
+
+
+#### e) Consonants only 
+
+Find the word(s) with the largest number of consecutive consonants.
+
+```{r}
+vowels <- "[aeiouAEIOU]"
+not_vowels <- "[^aeiouAEIOU]"
+
+replace_vowel <- str_replace_all(scrabble, vowels, " " ) 
+
+# find largest number of consecutive consonants
+c <- str_split(replace_vowel, " ", simplify = TRUE)
+longest_not_vowel <- c[str_length(c) == sort (str_length(c), decreasing = TRUE)[1]]
+print (longest_not_vowel)
+
+# words that have largest number of consecutive consonants
+print (str_subset(twl06, pattern = ".*dysrhythm.*"))
+print (str_subset(twl06, pattern = ".*lyrhythms.*"))
+print (str_subset(twl06, pattern = ".*lfhydryls.*"))
+
+```
+
+#### f) Bonuzz (_optional_)
+
+Find the z-word(s) with z's that are as far apart as possible (i.e. we are interested in the distance between any two z's in the word). That means the word could contain more than two z's.
+
+```{r}
+# find words that only have 2 zs
+number_z <- str_count(scrabble, "z")
+zz_words <- scrabble[number_z != 0]
+number_z <- str_count(zz_words, "z")
+zz_words <- zz_words[number_z != 1]
+zz_words
+
+
+# replace all non-z characters to `-`
+lol <- str_extract_all(zz_words, "[z].*[z]")
+#lol
+sort (str_length(lol), decreasing = TRUE)
+#CHECKING
+#lol [str_length(lol) ==9]
+#lol [str_length(lol) ==7]
+#lol [str_length(lol) ==4]
+
+
+# words that have the longest consonants apart among z
+print (str_subset (zz_words, pattern = 'zzamatazz'))
+print (str_subset (zz_words, pattern = 'zimidaz' ))
+```
+
+### 2. Emergency Hospital Injuries 
+
+The file `emergency.csv` contains a random sample of 10,000 narratives of injuries treated in U.S. emergency departments. We will try to extract some structured data from these narratives.
+
+```{r}
+library(tidyverse)
+emer_data <- read_csv('/Users/tinganlai/Documents/GitHub/Lai_Ting_An/hw06/emergency.csv')
+
+```
+
+#### a) Fractures
+
+Find all narratives related to "fractures". Try to include singular/plural/verb forms in your search. How many fracture narratives can you find?
+```{r}
+#View (emer_data)
+
+str(emer_data)
+emer_df <- as.data.frame(emer_data)
+str(emer_df)
+
+is.character(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`)
+
+
+fractures <- str_detect(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL` , ".*[F|f][R|r][A|a][C|c][T|t][U|u][R|r].*")
+p <- emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`[fractures==TRUE]
+length(p)
+#View (p)
+#531 fractuer narratives
+```
+
+#### c) Body Parts
+
+Among the fracture narratives, try to identify the body parts that are fractured (_Note_: Don't go overboard. A selection of parts is sufficient. No need to become a medicical doctor here). Make a histogram of fractured body parts (but make sure plural and singular are combined.)
+
+```{r}
+
+body_parts <- c("finger", "elbow", "hips", "thumb", "forearm", "hand", "ankle", "mid back", "low back", "wrist", "toe", "rib", "shoulder", "nose" )
+
+knee <- ".*KNEE.*"
+elbow <-".*ELBOW.*"
+hip <- ".*HIP.*"
+thumb <- ".*THUMB.*"
+forearm <- ".*FOREARMS.*"
+hand <- ".*HAND.*"
+ankle <- ".*ANKLE.*"
+midback <- ".*MID.*BACK.*"
+lowback <-".*LOW.*BACK.*"
+wrist <-".*WRIST.*"
+toe <- ".*TOE.*"
+rib <- ".*RIB.*"
+shoulder <- ".*SHOULDER.*"
+nose <- ".*NOSE.*"
+finger <- ".*FINGER.*"
+
+
+body_parts <- c(knee, elbow,hip,thumb,forearm,hand,ankle,midback,lowback,wrist,toe,rib,shoulder,nose,finger)
+length(body_parts)
+body_fracture <- list()
+
+# extraxt the narratives that have body parts
+for (x in 1:15) {
+  body_fracture[[x]] <- str_subset(p, pattern = body_parts[x])
+}
+
+
+count <- lapply(body_fracture, length)
+unlist_count <- unlist (count)
+
+
+character.vector <- c("knee", "elbow", "hip" ,"thumb", "forearm", "hand", "ankle", "midback", "lowback", "wrist", "toe", "rib", "shoulder","nose" ,"finger")
+values.vector <- unlist_count
+
+list_name <- as.list(setNames(values.vector, character.vector))
+list_name <- unlist (list_name)
+barplot(list_name, main = "Body Parts Fracture Amount", xlab = "Body Parts")
+
+```
+
+
+#### d) Age and Gender
+```{r}
+age <- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, "\\d+ *(Y|M)")
+gender <- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, "(MO|YO|YR|Y|Y/O|MONTH OLD) *(F|M)") %>%
+  str_extract("(R|O|Y) *(F|M)") %>%
+  str_extract("(F|M)")
+
+#combine into df
+ag_df <- data.frame("age" = age, "gender" = gender ,stringsAsFactors=FALSE)
+```
+
+
+```{r}
+# deal with the age column
+test <- ag_df
+month_log <- str_detect(ag_df$age, "M")
+month_log[is.na(month_log)] <- FALSE
+month <- ag_df$age[str_detect(ag_df$age, "M")]
+
+for (i in 1:9999) {
+  if (month_log[i]) {
+   test$age[i] <- as.numeric (str_extract(test$age[i], "\\d+"))/12 # convert month to year
+  } else if (is.na (test$age[i])) {
+    test$age[i] <- test$age[i]
+  } else {
+    test$age[i] <- as.numeric (str_extract(test$age[i], "\\d+"))  # extract numbers in year
+  }
+}
+```
+
+
+
+
+```{r}
+test$age <- as.numeric (test$age)
+test_na <- na.omit(test)
+library(ggplot2)
+
+# count freq
+library(dplyr)
+freq <- test_na %>%
+  group_by(age, gender) %>%
+  summarise(counts = n())
+freq
+
+ggplot(freq, aes(x = age, y=counts, color = factor(gender))) +
+  geom_bar(fill = "#0073C2FF", stat = "identity") +
+  geom_smooth(method = "lm")
+```
+
+Let's try to extract age and gender. In a number of narratives you may have noticed a pattern:
+
+  * "**75 YOM**, FELL DOWN STAIRS, FRACTURE LEG": A 75 year old male.
+  * "**21MOF** FINGER SHUT IN WINDOW AT HOME;NAILBED INJURY: A 21 month-old female child.
+  * "DX:AVULSION OF SKIN-**50YOF**-CUT THUMB WITH SCISSORS TONIGHT-OPENING A BOX": A 50 year old female.
+  * "LEFT ELBOW CONTUSION,RT SHIN LAC.PT WAS ICE SKATING AND FELL.": No information about age or gender.
+  
+  You are generally looking for a pattern with a number (_age_), something to indicate the _units_, e.g. YO or YR for years old, or MO for months old, and a character that identifies the _gender_. So, I suggest to think of a pattern that combines these three parts. 
+  
+  Create variables for age and gender (make sure to convert months to years when necessary). How many males and females  are in the data? Provide a line graph of the number of injuries (y-axis) vs age (x-axis) disaggregated by gender.
+
