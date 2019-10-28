@@ -211,6 +211,7 @@ barplot(list_name, main = "Body Parts Fracture Amount", xlab = "Body Parts")
 
 #### d) Age and Gender
 ```{r}
+#extract age and gender from narratives
 age <- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, "\\d+ *(Y|M)")
 gender <- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, "(MO|YO|YR|Y|Y/O|MONTH OLD) *(F|M)") %>%
   str_extract("(R|O|Y) *(F|M)") %>%
@@ -221,7 +222,7 @@ ag_df <- data.frame("age" = age, "gender" = gender ,stringsAsFactors=FALSE)
 ```
 
 
-```{r}
+```{r, message = FALSE, warning=FALSE}
 # deal with the age column
 test <- ag_df
 month_log <- str_detect(ag_df$age, "M")
@@ -242,7 +243,7 @@ for (i in 1:9999) {
 
 
 
-```{r}
+```{r, message=FALSE}
 test$age <- as.numeric (test$age)
 test_na <- na.omit(test)
 library(ggplot2)

@@ -2009,7 +2009,8 @@ barplot(list_name, main = &quot;Body Parts Fracture Amount&quot;, xlab = &quot;B
 </div>
 <div id="d-age-and-gender" class="section level4">
 <h4>d) Age and Gender</h4>
-<pre class="r"><code>age &lt;- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, &quot;\\d+ *(Y|M)&quot;)
+<pre class="r"><code>#extract age and gender from narratives
+age &lt;- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, &quot;\\d+ *(Y|M)&quot;)
 gender &lt;- str_extract(emer_df$`10 MO F FELL OUT OF SHOPPING CART;DX FRACTURED SKULL`, &quot;(MO|YO|YR|Y|Y/O|MONTH OLD) *(F|M)&quot;) %&gt;%
   str_extract(&quot;(R|O|Y) *(F|M)&quot;) %&gt;%
   str_extract(&quot;(F|M)&quot;)
