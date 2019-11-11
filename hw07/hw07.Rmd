@@ -1,0 +1,224 @@
+---
+title: "hw01"
+author: "Ting An Lai"
+date: '2019-09-23'
+output:
+#  html_document:
+#    df_print: paged
+#    toc: yes
+  html_notebook:
+    toc: yes
+---
+
+1. Define the base URL
+
+In the documentation, find the API Endpoint for csv (Hint: if there is a json at the end, replace json with csv).
+
+2. Send a simple GET request
+
+Using httr, send a simple GET request to the base URL. Print the status and structure of the response (print only the first level in your ouput of str using the option max.level).
+
+```{r}
+library(httr)
+endpoint <- "https://data.lacity.org/resource/63jg-8b9z.json"
+request <- GET(endpoint)
+
+print (request$status_code)
+print (str(request, max.level=1))
+```
+
+3. Get the content of the response
+Retrieve the content of the response. What are the dimensions of the data frame? Tabulate the areas of the observations included.
+
+The response is a  list with 1000 elements. In  each element, there are 22-26  elements, **dr_no**, **date_rptd**, **date_occ**, **time_occ**, **area**, **area_name**, **rpt_dist_no**, **part_1_2**, **crm_cd**,  **crm_cd_desc**, **mocodes**, **vict_sex**,  **vict_descent**, **premis_cd**, **premis_desc**, **status_desc**, **crm_cd_1**,  **location**,  **lat**, **lon**, **cross_street**,  **status**.
+
+```{r}
+library(tidyverse)
+# get content
+response <- content(request)
+# dataframe  dimension
+print (str(response,max.level = 1))
+#names(response)
+
+# get  the  areas of  the  observation.
+arealist <-  list () #empty list
+
+for  (i  in  1:length(response) ) {
+  arealist[i] <-   response[i][[1]]["area"]
+}
+
+#arealist  #tabulate the  area
+
+num  <-  as.numeric (arealist[])
+table  (num)
+tabulate  (num)
+```
+
+```{r}
+#  create  Renvironment
+#R.home(component = "home")
+#usethis::edit_r_environ()
+```
+4. Get your access token
+
+As you have noticed, our initial request yielded only a small part of the data. For full access (actually the API seems not to care much, but for exercise's sake let's do it), you will need an API key to access the data. Sign up here https://data.lacity.org/profile/app_tokens and get your token.
+
+To keep your key safe, it is always better not to add it to your code. Place your token in the R environment file (as shown in class). Add the following lines (with your access info) to the .Renviron file (the usethis::edit_r_environ() function will be useful).
+Note: if you have trouble, take a look at this more extended discussion of the .Renviron file.
+
+```{r}
+query_params <- list(
+  "$limit" = "10000",
+  "$$app_token" = Sys.getenv("LACRIME_APP_TOKEN"))
+
+parameter_response <-
+  GET("https://data.lacity.org/resource/63jg-8b9z.json", 
+      query = query_params)
+parameter_response
+parameter_response$status_code
+```
+
+
+5. Limiting your query
+
+Choose at least two more query field parameters from the API description [the blueish list on the bottom of the page], pass them to the query parameter list, and run the query (providing the server status again). Describe briefly in words what your query is selecting.
+
+
+```{r}
+query_2  <-  list(
+  vict_sex  = "F",
+  time_occ  = 1350,
+   "$limit" = "10000",
+  "$$app_token" = Sys.getenv("LACRIME_APP_TOKEN")
+)
+
+response_2 <-
+  GET("https://data.lacity.org/resource/63jg-8b9z.json", 
+      query = query_2)
+response_2$status_code
+View (content(response_2))
+
+
+```
+
+This qeury adds two additional parameters **vict_sex**  and **area**. The **time_occ** column is  text  data type and it means in the 24 hour military time. **vict_sex** is also  a text data type  and it is biological sex  of  victim. These Geographic Areas are sequentially numbered from 1-21. I'm querying  the time at  13:50 and victim  was female.
+
+
+```{r}
+library(stringr)
+lat =  -37.866963
+long = 144.980615
+# Add API Key in the parameters if available.
+  if (!is.null("GOOGLE_MAP_API")) {
+    parameters <- str_c("&key=", "GOOGLE_MAP_API")
+  }
+
+# formatting 50 url
+apiRequests <- iconv(stringr::str_c("https://maps.googleapis.com/maps/api/geocode/json?latlng=", lat, ",", long, "&key=", "GOOGLE_MAP_API"), "", "UTF-8")
+
+
+# call the api
+response_3  <- GET(apiRequests[1])
+response_3
+```
+
+6. Choose one of the reverse geocoding APIs. Your task is to write a loop to find the addresses for 50 entries in your dataset based on their latitude and longitude. The object you get back is likely a bit verbose. You will need to take a look at the object to find the part where an address is provided.
+
+In the loop, add a status check (using an if statement) that will warn us if something goes awry. Lastly, add a Sys.sleep pause of 0.1 seconds after each URL retrieval to make sure we use the Maps API responsibly.
+
+As an output, provide a datatable showing the latitude, longitude, the location field from the original data API and a location_revgeo field which provides the address you got from the reverse geocoding for these 50 entries.
+```{r}
+if(!require(revgeo)) install.packages("revgeo",repos = "http://cran.us.r-project.org")
+#library(devtools)
+#install_github('mhudecheck/revgeo')
+```
+
+```{r}
+library('revgeo')
+```
+
+```{r}
+#  get  50 lat andlong from  response
+lat <-  list () #empty list
+for  (i  in  1:50 ) {
+  lat[i] <-   response[i][[1]]["lat"]
+}
+
+lon <- list ()
+for  (i in  1:50 ) {
+  lon[i] <-  response[i][[1]]["lon"]
+}
+
+#  get the location from originally called API
+loc_org <- list ()
+for  (i  in  1:50 ) {
+  loc_org[i] <-   response[i][[1]]["location"]
+}
+```
+
+
+```{r}
+# get 50 concatenated URL
+apiURL  <-  list()
+for  (i in  1:50) {
+  apiURL <- paste("https://maps.googleapis.com/maps/api/geocode/json?latlng=",  lat,  ",",  lon, "&key=", Sys.getenv("GOOGLE_MAP_API"), sep  = "")
+}
+
+
+```
+
+```{r,  message=FALSE}
+if(!require(jsonlite)) install.packages("jsonlite",repos = "http://cran.us.r-project.org")
+library(jsonlite)
+# reverse  geocode  find location using revgeo
+location  <- list  ()
+capture.output  (for  (i  in 1:50)  {
+  
+#get the  locations
+  location[i] <- revgeo(longitude=lon[[i]], latitude=lat[[i]], provider='google', API=Sys.getenv("GOOGLE_MAP_API"))
+  
+   # Avoid calling API too often.
+    Sys.sleep(0.1)
+    #put a  warning  message
+    if (is.null (location[i])) {
+    warning  ("No  location")
+  }
+    
+})
+
+```
+
+
+
+```{r}
+# convert list to vectors for datatable 
+
+lat_vec <- c()
+lon_vec <- c()
+loc_org_vec <- c()
+location_vec  <- c()
+
+for  (i  in  1:50 ) {
+    lat_vec[i] <- lat[[i]]
+    lon_vec [i]<- lon[[i]]
+  loc_org_vec[i] <- loc_org[[i]]
+  location_vec[i]  <- location[[i]]
+
+}
+
+
+
+# create datatable
+
+library(data.table)
+DT  =  data.table(
+   latitude  = lat_vec,
+  longtitude =  lon_vec,
+  original_location  =  loc_org_vec,
+  revgeo_location  =  location_vec
+)
+DT
+
+   
+```
+
