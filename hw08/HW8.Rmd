@@ -1,6 +1,13 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "hw08"
+author: "Ting An Lai"
+date: '2019-11-18'
+output:
+  html_document:
+    df_print: paged
+    toc: yes
+  html_notebook:
+    toc: yes
 ---
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
@@ -41,19 +48,19 @@ https://developers.facebook.com/docs/graph-api/using-graph-api
 # Make sure to register http://localhost:1410/ as the "redirect uri".
 #get access credentials
 
-install.packages ("Rfacebook")
+#install.packages ("Rfacebook")
 library(Rfacebook)
-install.packages ("RCurl")
+#install.packages ("RCurl")
 library(RCurl)
 token <- fbOAuth(
                     app_id="1198041707047474", 
                     app_secret="ccbbd67148736bb35464ed3ae98c0501",
                     scope = c("user_likes", "user_friends", "user_status", "user_posts", "public_profile"),
-                    extended_permissions = TRUE)
+                   extended_permissions = TRUE)
 
-#save(token, file="token")
+save(token, file="token")
  
-#load("fb_oauth")
+load("token")
 
 ```
 
@@ -143,6 +150,7 @@ View (df)
 ```
 
 c) Provide some summary statistics of the data. Include the data frame in a .RDS file (using saveRDS) called data.rds with your submission for the grader.
+For this specific user, the year that she had liked the most pages. 
 
 ```{r}
 library(stringr)
@@ -154,6 +162,8 @@ for (i in 1:100) {
 
 year <- as.numeric(year)
 summary(year)
+year <- na.omit(year)
+table(year)
 
 saveRDS(year, file = "like_year_data.rds")
 readRDS(file = "like_year_data.rds")
@@ -206,8 +216,8 @@ getUserLikePageYear <- function (user, limits) {
   return(year0)
 }
 
-getUserLikePageYear("/3047739978573522 : Cathy Lai", "10")
-getUserLikePageYear("/3047739978573522 : Cathy Lai", "40")
+a <- getUserLikePageYear("/3047739978573522 : Cathy Lai", "10")
+b <- getUserLikePageYear("/3047739978573522 : Cathy Lai", "40")
 
 ```
 
