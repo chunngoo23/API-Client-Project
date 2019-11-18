@@ -35,7 +35,7 @@ oauth_endpoints("facebook")
 
 2. Authentication
 a) Briefly explain how the API authenticates the user.
-- I had to register a developer accoun t
+- I had to register a developer account
 - create an app
 - get access credentials
 - obtain access token
@@ -43,7 +43,6 @@ a) Briefly explain how the API authenticates the user.
 b) Apply for an API key if necessary and provide the information (with relevant URL) how that can be done.
 https://developers.facebook.com/docs/graph-api/using-graph-api
 ```{r}
-
 # Register an application at https://www.reddit.com/prefs/apps
 # Make sure to register http://localhost:1410/ as the "redirect uri".
 #get access credentials
@@ -52,13 +51,12 @@ https://developers.facebook.com/docs/graph-api/using-graph-api
 library(Rfacebook)
 #install.packages ("RCurl")
 library(RCurl)
-token <- fbOAuth(
-                    app_id="1198041707047474", 
-                    app_secret="ccbbd67148736bb35464ed3ae98c0501",
-                    scope = c("user_likes", "user_friends", "user_status", "user_posts", "public_profile"),
-                   extended_permissions = TRUE)
+#token <- fbOAuth(app_id="1198041707047474", 
+#                    app_secret="ccbbd67148736bb35464ed3ae98c0501",
+#                    scope = c("user_likes", "user_friends", "user_status", "user_posts", "public_profile"),
+#                   extended_permissions = TRUE)
 
-save(token, file="token")
+#save(token, file="token")
  
 load("token")
 
@@ -143,6 +141,8 @@ str(df)
 
 
 b) Using the API, create a dataset (in data frame format) for multiple records. I'd say a sample size greater than 100 is sufficient for the example but feel free to get more data if you feel ambitious and the API allows you to do that fairly easily. The dataset can include only a small subset of the returned data. Just choose some interesting features. There is no need to be inclusive here.
+
+This is a summary of this users' fanpage liking distribution, including 
 
 
 ```{r}
