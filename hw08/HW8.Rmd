@@ -1,0 +1,214 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+#  create  Renvironment
+#R.home(component = "home")
+#usethis::edit_r_environ()
+```
+
+# 1. Choose an API
+## a) Choose an API and briefly describe the type of data you can obtain from it. Note: Please do not use any of the APIs we covered in lecture (e.g. Twitter, NYTimes, Enigma, Zillow etc.). 
+I use Facebook API.
+## b) Provide a link to the API documentation and
+https://developers.facebook.com/docs/graph-api/reference/v5.0/user/feed
+## c) the base URL of the API you intend to use.
+https://graph.facebook.com
+
+```{r}
+library(httr)
+oauth_endpoints("facebook")
+```
+
+2. Authentication
+a) Briefly explain how the API authenticates the user.
+- I had to register a developer accoun t
+- create an app
+- get access credentials
+- obtain access token
+
+b) Apply for an API key if necessary and provide the information (with relevant URL) how that can be done.
+https://developers.facebook.com/docs/graph-api/using-graph-api
+```{r}
+
+# Register an application at https://www.reddit.com/prefs/apps
+# Make sure to register http://localhost:1410/ as the "redirect uri".
+#get access credentials
+
+install.packages ("Rfacebook")
+library(Rfacebook)
+install.packages ("RCurl")
+library(RCurl)
+token <- fbOAuth(
+                    app_id="1198041707047474", 
+                    app_secret="ccbbd67148736bb35464ed3ae98c0501",
+                    scope = c("user_likes", "user_friends", "user_status", "user_posts", "public_profile"),
+                    extended_permissions = TRUE)
+
+#save(token, file="token")
+ 
+#load("fb_oauth")
+
+```
+
+```{r}
+#check the connection to API
+#https://api.rpubs.com/danbooth/facebook_api
+# GET request for your user information
+req <- GET("https://graph.facebook.com/", path="/me", config(token = token))
+
+content(req)
+req$status_code
+```
+
+
+```{r}
+#get app access token
+# Define keys
+app_id = "1198041707047474"
+app_secret = "ccbbd67148736bb35464ed3ae98c0501"
+
+# Define the API node and query arguments
+node <- '/oauth/access_token'
+query_args <- list(client_id = app_id,
+                   client_secret = app_secret,
+                   grant_type = 'client_credentials',
+                   redirect_uri = 'http://localhost:1410/')
+
+# GET request to generate the token
+response <- GET('https://graph.facebook.com',
+                path = node,
+                query = query_args)
+
+
+# Save the token to an object for use
+app_access_token <- content(response)$access_token
+app_access_token
+
+```
+
+3. Send a Simple GET request
+## a) Execute a simple GET request to obtain a small amount of data from the API. Describe a few query parameters and add them to the query. If you have a choice of the output the API returns (e.g. XML or JSON), I suggest to choose JSON because it easier to work with. Your output here should include the code for the GET request, including the query parameters.
+
+I send a request to Facebook API about my user feed page. The parameter included fields that contain the message of the post, created time, the post_id, and the location tag along with it.
+
+b) Check the status of the request (using http_status).
+c) Check the type of the response (e.g. XML, JSON, csv using http_type).
+````{r}
+#test connection
+# GET request for user feeds
+path <- "/3047739978573522 : Cathy Lai"
+query_args <- list(fields = 'likes',
+                   limit ='1000',
+                   access_token = Sys.getenv("FACEBOOK_ACCESS_TOKEN"))
+
+response <- GET("https://graph.facebook.com/v5.0",
+                path = path,
+                query = query_args)
+
+test <- GET("https://graph.facebook.com/v5.0/me/likes?limit=1000&access_token=EAARBnNJf6jIBABZBBEj9XI8MhY9IHiZBGPZBIAfEjEKq81vXkQf5pZBXVZCSTtv8s1dBz73KIFxJZA1Y7qEbyFKTzPcFdd2exR3XHs6qd9yf09oPeyJg99kEWcTwy9fuvvX7s8irwzCg4YhdGiFmWUptIsTbeuKOa4A6fD7ZBFCZAL9kwZCbqImZCTHv9XOKjZBWQyh3q7S1kqYEnuhuShAa4e4xznbNddpMfPPbk8DZCbmFgwZDZD")
+
+response$status_code
+cont <- content(test)
+
+http_status(test)
+http_type(test)
+```
+
+4. Parse the response and Create a dataset
+a) Take the response returned by the API and turn it into a useful R object (e.g. a list, vector, or data frame). Show the code how this is done.
+```{r}
+#View (cont)
+#str(cont)
+#cont$feed$data[[1]]$created_time
+
+library(jsonlite)
+data <- fromJSON(toJSON(cont), flatten=TRUE)
+df <- fromJSON(toJSON(data$data),flatten=TRUE)
+str(df)
+```
+
+
+b) Using the API, create a dataset (in data frame format) for multiple records. I'd say a sample size greater than 100 is sufficient for the example but feel free to get more data if you feel ambitious and the API allows you to do that fairly easily. The dataset can include only a small subset of the returned data. Just choose some interesting features. There is no need to be inclusive here.
+
+
+```{r}
+View (df)
+```
+
+c) Provide some summary statistics of the data. Include the data frame in a .RDS file (using saveRDS) called data.rds with your submission for the grader.
+
+```{r}
+library(stringr)
+
+year <-c()
+for (i in 1:100) {
+  year[i] <- substr ((df$created_time)[i], start=1, stop=4)
+}
+
+year <- as.numeric(year)
+summary(year)
+
+saveRDS(year, file = "like_year_data.rds")
+readRDS(file = "like_year_data.rds")
+```
+
+
+5. API Client
+Lastly, let's try to wrap the code from the previous sections into a simple API client function. For example, in the ZillowR package, the command GetSearchResults() can be called with the following command
+
+```{r}
+
+getUserLikePageYear <- function (user, limits) {
+  path0 = user
+  path1 = "/me"
+  query_args0 <- list(fields = 'likes',
+                   limit =  limits,
+                   access_token = Sys.getenv("FACEBOOK_ACCESS_TOKEN"))
+  #request data
+  response0 <- GET("https://graph.facebook.com/v5.0",
+                path = path1,
+                query = query_args0)
+  
+  
+  #test <- GET("https://graph.facebook.com/v5.0/me/likes?limit=1000&access_token=EAARBnNJf6jIBABZBBEj9XI8MhY9IHiZBGPZBIAfEjEKq81vXkQf5pZBXVZCSTtv8s1dBz73KIFxJZA1Y7qEbyFKTzPcFdd2exR3XHs6qd9yf09oPeyJg99kEWcTwy9fuvvX7s8irwzCg4YhdGiFmWUptIsTbeuKOa4A6fD7ZBFCZAL9kwZCbqImZCTHv9XOKjZBWQyh3q7S1kqYEnuhuShAa4e4xznbNddpMfPPbk8DZCbmFgwZDZD")
+
+  
+  #print (http_status(response0))
+  #print (http_type(response))
+  cont0 <- content(response0)
+  #print (cont0)
+  data0 <- fromJSON(toJSON(cont0, force=TRUE))
+  df0 <- fromJSON(toJSON(data0$likes$data), flatten=TRUE)
+  
+  #print (df0)
+  
+  #extract like page time
+  n <- as.numeric (limits)
+  year0 <-c()
+  for (i in 1:n) {
+    year0[i] <- substr ((df0$created_time)[i], start=1, stop=4)
+  }
+  
+  year0 <- as.numeric(year0)
+  print (summary(year0))
+  
+  print (year0)
+  
+  saveRDS(year0, file = "api_client_output.rds")
+  readRDS(file = "api_client_output.rds")
+  return(year0)
+}
+
+getUserLikePageYear("/3047739978573522 : Cathy Lai", "10")
+getUserLikePageYear("/3047739978573522 : Cathy Lai", "40")
+
+```
+
+
