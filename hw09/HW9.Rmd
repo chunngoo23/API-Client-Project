@@ -443,20 +443,30 @@ summary (as.numeric(child))
 ```
 
 
+> Democratic party senators have an average of 5.28 children
+> Republic party senators have an average of 5.04 children
+> Inbdependet senators have an average of 2 children
+> There was one unknown party senator
 
 
 ```{r, eval=FALSE}
 
 #clean the data in party
-party <- gsub("[/(*/)]", "", df$party)
+party2 <- gsub(" \\((.*?)\\)", "", df$party)
+party2 <- gsub(" ", "", party2)
+party2 <- as.character(party2)
+
+df1 <- cbind (df, party2)
+df1 <- na.omit(df1)
+
+library(dplyr)
+
+test <- df1 %>% 
+  group_by(party2) %>%
+  summarise(mean=mean(as.numeric(child)))
 
 
-df %>% 
-  group_by(party) %>%
-  summarize(means)
-
-
-
+View (test)
 
 ```
 

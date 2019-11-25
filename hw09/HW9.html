@@ -2794,13 +2794,25 @@ child</code></pre>
 summary (as.numeric(child))</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     1.0     2.0     3.0     2.8     3.0     5.0</code></pre>
+<blockquote>
+<p>Democratic party senators have an average of 5.28 children Republic party senators have an average of 5.04 children Inbdependet senators have an average of 2 children There was one unknown party senator</p>
+</blockquote>
 <pre class="r"><code>#clean the data in party
-party &lt;- gsub(&quot;[a-zA-Z ]&quot;, &quot;&quot;, df$party)
+party2 &lt;- gsub(&quot; \\((.*?)\\)&quot;, &quot;&quot;, df$party)
+party2 &lt;- gsub(&quot; &quot;, &quot;&quot;, party2)
+party2 &lt;- as.character(party2)
+
+df1 &lt;- cbind (df, party2)
+df1 &lt;- na.omit(df1)
+
+library(dplyr)
+
+test &lt;- df1 %&gt;% 
+  group_by(party2) %&gt;%
+  summarise(mean=mean(as.numeric(child)))
 
 
-df %&gt;% 
-  group_by(party) %&gt;%
-  summarize(means)</code></pre>
+View (test)</code></pre>
 
 
 
