@@ -1,0 +1,231 @@
+---
+title: "Homework 8 - QMSS G5072 (2019)"
+output: 
+  html_notebook: 
+    toc: yes
+    theme: simplex
+    highlight: pygments
+  html_document:
+    theme: simplex
+    highlight: pygments
+date: "November 18, 2019"
+---
+
+```{r setup, include=FALSE, results='hide', warning=FALSE}
+library(knitr)
+opts_chunk$set(fig.path = "images/",
+               cache.path = "cache/",
+               cache = FALSE,
+               echo = TRUE,
+               message = FALSE,
+               warning = FALSE)  
+```  
+
+```{r import_libraries, results='hide', echo = FALSE, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+library(lubridate)
+
+theme_set(theme_minimal())
+```  
+
+# Choose an API: Spotify
+
+For this exercise, I choose to use the Spotify Web API. It might be the app/website I use the most so I guess that it will be fun to interact with it and to see what can be extracted from there. 
+
+- [Documentation for the Spotify API](https://developer.spotify.com/documentation/web-api/)
+- The base adress for Spotify web API is https://api.spotify.com.
+
+```{r endpoint}
+endpoint <- "https://api.spotify.com"
+```
+
+
+# Authentification
+
+In order to be able tu use the Spotify API, one needs to log in to their Spotify account (or create one). Then, one needs to create an app in order to acccess a client ID and a client secret by following [this link](https://developer.spotify.com/dashboard/applications).[^1] Hence, everything is designed considering that there will be an external user for the app *ie* not me.
+
+[^1]: Then click on "Create a client ID", fill in the necessary information and answer "I don't know" to the question "What are you building?"; it enables to develop a non-commercial application of the Spotify API.
+
+There are several types of authorization flows for Spotify. I use the [client credentials flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow). Its description is as follows: 
+
+> The Client Credentials flow is used in server-to-server authentication. Only endpoints that do not access user information can be accessed. The advantage here in comparison with requests to the Web API made without an access token, is that a higher rate limit is applied.
+
+It does not include authentification and prevent from accessing user private data. However, I do not want to access this type of data, hence why I chose this flow, considering that it is much simpler. The authorization flow is displayed in the following picture:
+
+![](images/author_flow.png)
+
+To sum up, one logs in with their client ID and secret key and get an access token. In plain text, the authorization code flow is as follows: I send my client_id, its client_secret and grant_type. Spotify asks me to login if necessary and then returns an access_token that I can use to interact with Spotify API. 
+
+```{r get_token}
+client_ID <- Sys.getenv("SPOTIFY_CLIENT_ID")
+secret_key <- Sys.getenv("SPOTIFY_SECRET_KEY")
+
+token_resp <- POST(
+  url = 'https://accounts.spotify.com/api/token',
+  config = authenticate(client_ID, secret_key),
+  body = list(grant_type = 'client_credentials'),
+  encode = 'form'
+)
+
+token <- content(token_resp)$access_token
+```
+
+Spotify provides [a more detailed description of the authorization process](https://developer.spotify.com/documentation/general/guides/authorization-guide/#authorizaton-code-flow).
+
+# Send a Simple GET request
+
+I want to execute a simple GET request. I choose to get data on Nina Simone's albums. I limit my search to albums and singles using the querry parameter `include_groups`. I also add a `limit` parameter to limit the number of album fetched. 
+
+```{r get}
+endpoint_artist <- "https://api.spotify.com/v1/artists/"
+id_nina_simone <- "7G1GBhoKtEPnP86X2PvEYO"
+endpoint_nina_simone <- str_c(endpoint_artist, id_nina_simone)
+
+bearer_token <- str_c("Bearer", token, sep = " ")
+
+query_params <- list("limit" = "10", "include_groups" = "album,single")
+
+nina_albums_resp <- GET(
+  url = str_c(endpoint_nina_simone, "/albums"),
+  config = add_headers(authorization = bearer_token),
+  query = query_params
+)
+
+status_resp <- http_status(nina_albums_resp)
+
+type_resp <- http_type(nina_albums_resp)
+```
+
+I need to provide the token through a special format. I follow directions in the documentation.
+
+The status of the request is "`r status_resp$message`" and the type of response is "`r type_resp`".
+
+# Parse the response and Create a dataset
+
+#### Parse
+
+```{r parse}
+parsed_albums_nina <- fromJSON(content(nina_albums_resp, as = "text")) 
+```
+
+By using this parsing method, we get a list of objects, including a dataframe (under `parsed_albums_nina$items`).
+
+#### Get 100 observations
+
+I do not get enough observations if I look at a given artist. The type of authorization I use limits the number of entries to 50. Hence, to create a dataset with 100 entries, I look at data for Beethoven and Mozart and combine them into one dataframe. I do not collect much data therefore my analysis is not particularly interesting.
+
+```{r 100_observations}
+#Mozart
+id_mozart <- "4NJhFmfw43RLBLjQvxDuRS"
+endpoint_mozart <- str_c(endpoint_artist, id_mozart)
+
+mozart_resp <- GET(
+  url = str_c(endpoint_mozart, "/albums"),
+  config = add_headers(authorization = bearer_token),
+  query = list("limit" = "50")
+)
+
+parsed_mozart <- fromJSON(content(mozart_resp, as = "text")) 
+
+#Beethoven
+id_beethoven <- "2wOqMjp9TyABvtHdOSOTUS"
+endpoint_beethoven <- str_c(endpoint_artist, id_beethoven)
+
+beethoven_resp <- GET(
+  url = str_c(endpoint_beethoven, "/albums"),
+  config = add_headers(authorization = bearer_token),
+  query = list("limit" = "50")
+)
+
+parsed_beethoven <- fromJSON(content(beethoven_resp, as = "text")) 
+
+#Merge
+mozart_tibble <- parsed_mozart$items %>%
+  as_tibble() %>% 
+  select(name, release_date, total_tracks) %>% 
+  mutate(composer = "Mozart")
+
+beethoven_tibble <- parsed_beethoven$items %>%
+  as_tibble() %>% 
+  select(name, release_date, total_tracks)  %>% 
+  mutate(composer = "Beethoven")
+  
+moz_beethov <- mozart_tibble %>% 
+  rbind(beethoven_tibble) %>% 
+  rename(album_name = name)
+```
+
+#### Summary statistics
+
+For summary statistics, I look at the average number of tracks on Mozart and Beethoven compilations. I also display the evolution of the 50 most recent release of compilitations for both composers.
+
+```{r summary_stats}
+moz_beethov %>% 
+  group_by(composer) %>% 
+  summarise(average_number_tracks = mean(total_tracks)) %>% 
+  kable(col.names = c("Composer", "Average number of tracks"))
+
+moz_beethov %>% 
+  mutate(release_date = ymd(release_date)) %>% 
+  ggplot() +
+  geom_histogram(aes(x = release_date, fill = composer), position = "dodge") +
+  labs(title = "Temporal distribution of the last 50 composition releases for Beethoven and Mozart", x = "Release date", y = "Count")
+
+saveRDS(moz_beethov, file = "Outputs/moz_beethov.rds")
+```
+
+# API client
+
+I wrote a function to get the same data frame I provided before but for different artists. To do that, one needs to provide a vector with the Spotify IDs of artists. Also, one should get a client ID and a secret key through the process described above, in order to be able to use this function.
+
+```{r functionn}
+get_albums_artist <- function(clientID, secret, id_artist = c(Mozart = "4NJhFmfw43RLBLjQvxDuRS", Beethoven = "2wOqMjp9TyABvtHdOSOTUS"), number_albums = 20) {
+  
+  token_resp <- POST(
+    url = 'https://accounts.spotify.com/api/token',
+    config = authenticate(clientID, secret),
+    body = list(grant_type = 'client_credentials'),
+    encode = 'form'
+  )
+
+  token <- content(token_resp)$access_token
+  
+  if (number_albums > 50) stop("The number of albums should be between 1 and 50")
+  
+  artist_tibble <- NULL
+  endpoint_f <- NULL
+  parsed_artist <- NULL
+  
+  for (index_art in 1:length(id_artist)) {
+    endpoint_f <- str_c("https://api.spotify.com/v1/artists/", id_artist[index_art], "/albums")
+    resp <- GET(
+      url = endpoint_f,
+      config = add_headers(authorization = str_c("Bearer", token, sep = " ")),
+      query = list("limit" = number_albums)
+    )
+    
+    if (http_status(resp)$category != "Success") {
+      warning(str_c("For", id, "the status is", http_status(resp)$message, sep = " "))
+    } 
+    
+    parsed_artist <- fromJSON(content(resp, as = "text")) 
+    
+    artist_tibble <- parsed_artist$items %>%
+      as_tibble() %>%
+      select(name, release_date, total_tracks) %>%
+      mutate(artist_name = names(id_artist)[index_art]) %>%
+      rename(album_name = name)
+      rbind(artist_tibble)
+  }
+  return(artist_tibble)
+} 
+```
+
+```{r}
+moz_beethov_fct <- get_albums_artist(clientID = client_ID, secret = secret_key)
+
+saveRDS(moz_beethov_fct, file = "Outputs/api_client_output.RDS.rds")
+```
+
