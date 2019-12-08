@@ -36,8 +36,46 @@ endpoint <- "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/"
 #Authentification
 ```{r}
 
+test <- GET("https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/")
+a <- GET ("https://uscdi.epic.com/interconnect-uscdi-oauth/api/FHIR/DSTU2/metadata")
+content(a)
+```
+
+```{r}
+test <- GET("https://uscdi.epic.com/interconnect-uscdi-oauth/oauth2/authorize?scope=launch&response_type=code&redirect_uri=https://uscdi.epic.com/test/smart&client_id=d45049c3-3441-40ef-ab4d-b9cd86a17225&launch=eCV3BWVS_UHAJw8rUd_XcNJt9Zw5oywsCfyVznGXjIT8RI2qEUngatww_IulfRQ8MPg7J8loZkuJGgi6Y7-DdSAU64S1LmOSBudj9eXAnBmSQKKgRiBoymbH7XBQu4zw&state=TqPldbR1ufgCygZFLK0AhNAB")
+
+content(test)
+str(test)
+View (test)
+```
 
 
+# initiate the authentication process 
+```{r}
+what <- GET("https://uscdi.epic.com/test/smart?code=snoih85lqpu2Nuyh1NlwDsTRvJsmLFvn2s77YUfGDAhHg30mfP9edCu9FUy1GDPzdmWOFkVg5_83ugJlp6_eHlEHWipEH7NR7yvs6EC6XGTHNlvJdj8KBw4fHP_on4e1&state=TqPldbR1ufgCygZFLK0AhNAB")
+what
+content(what)
+str(what)
+View (what)
+```
+
+
+
+# being authenticate with auth code
+```{r}
+c <- GET("https://uscdi.epic.com/interconnect-uscdi-oauth/oauth2/authorize?response_type=code&redirect_uri=http://localhost:1410/&client_id=5515d1fc-60b3-417c-b1b1-d90d9b5f8fda&state=abc123")
+c
+View (c)
+
+```
+
+
+#from auth code get access token
+```{r}
+
+d <- GET("https://uscdi.epic.com/test/smart?code=snoih85lqpu2Nuyh1NlwDsTRvJsmLFvn2s77YUfGDAhHg30mfP9edCu9FUy1GDPzdmWOFkVg5_83ugJlp6_eHlEHWipEH7NR7yvs6EC6XGTHNlvJdj8KBw4fHP_on4e1&state=abc123")
+content(d)
+View (d)
 ```
 
 
