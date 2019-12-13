@@ -2,10 +2,10 @@
 #'
 #' This is a function for user to query makeup product list according to product pricing and rating conditions
 #' @author Ting-An Lai, \email{tl2960@columbia.edu}
-#' @param price a number.
-#' @param price_condition_operator what condition you're looking for, 'greater than', 'less than', 'equal'
-#' @param rating a number
-#' @param rating_condition_operator twhat condition you're looking for, 'greater than', 'less than', 'equal'
+#' @param price a positive number.
+#' @param price_condition_operator the condition you're looking for, 'greater than', 'less than', 'equal'
+#' @param rating a number between 0 to 5.
+#' @param rating_condition_operator the condition you're looking for, 'greater than', 'less than', 'equal'
 #' @param ...
 #' @return a dataframe of product and product feature the user queried
 #' @example
@@ -25,7 +25,31 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
   rating_url <- rating-1
   index_equal <- c()
 
-
+  
+  if(price<0) {
+    message_p <- paste0("Please enter a positive number for price")
+    return(warning(message_p))
+  }
+  
+  if(price>77) {
+    message_p_b <- paste0("There is no product this expensive. Please enter a smaller price.")
+    return(warning(message_p_b))
+  }
+  
+  
+  if(rating<0) {
+    message_r <- paste0("Please enter a positive number for rating")
+    return(warning(message_r))
+  }
+  
+  if(rating>5) {
+    message_r_b <- paste0("Please enter a number smaller than 5 for rating")
+    return(warning(message_r_b))
+  }
+  
+  
+  
+  
   #when price_condition == greater
   if(price_condition_operator == 'greater than') {
     if(rating_condition_operator == 'greater than') {
@@ -129,9 +153,8 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
     if(rating_condition_operator=='equal') {
       index_r <- which (json_content_price$rating == rating)
       #get the only rows we want
-      }
-
-
+    }
+    
     index_equal <- append(index_p, index_r)
     }
 
@@ -142,7 +165,5 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
     } else {
       return(json_content_price[index,])
     }
-
-
 
 }

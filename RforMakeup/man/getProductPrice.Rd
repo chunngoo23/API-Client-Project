@@ -12,13 +12,13 @@ getProductPrice(
 )
 }
 \arguments{
-\item{price}{a number.}
+\item{price}{a positive number.}
 
-\item{price_condition_operator}{what condition you're looking for, 'greater than', 'less than', 'equal'}
+\item{price_condition_operator}{the condition you're looking for, 'greater than', 'less than', 'equal'}
 
-\item{rating}{a number}
+\item{rating}{a number between 0 to 5.}
 
-\item{rating_condition_operator}{twhat condition you're looking for, 'greater than', 'less than', 'equal'}
+\item{rating_condition_operator}{the condition you're looking for, 'greater than', 'less than', 'equal'}
 }
 \value{
 a dataframe of product and product feature the user queried

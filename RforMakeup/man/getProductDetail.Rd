@@ -22,6 +22,13 @@ This function returns a clean output of products' detailed features of user's se
 Specifying a  string or dataframe allows you to specify whether you want to return the entire results with NULL returns all product features, a vector of items, or a single item with item=""
 Valid options for 'items=' include 'product_name', 'product_type', 'brand', 'product_tags', 'price', 'description', 'image',  'product_colors_hexvalues', and 'product_colors_name.'
 }
+\examples{
+getProductDetail()
+getProductDetail(product_type="eyebrow")
+getProductDetail(product_type="blush", brand="nyx")
+getProductDetail(product_type="blush", brand="nyx", items='product_colors_hexvalues')
+getProductDetail(product_type="blush", brand="nyx", items=c('price', 'product_colors_hexvalues'))
+}
 \author{
 Ting-An Lai, \email{tl2960k@columbia.edu}
 }
