@@ -9,7 +9,8 @@ devtools::install_github("chunngoo23/API-Client-Project/RforMakeup")
 This package includes two useful functions for user to query makeup product data from the API. 
 
 ### getProductDetail()
-This function 
+Having specific makeup product in mind that you want to understand its details? This function returns a clean output of products' detailed features of user's selections from the makeup product database. User can specifying whether you want to return the entire results with NULL returns all product features, a vector of items, or a single item with item="".
+
 ```r
 library(RforMakeup)
 
