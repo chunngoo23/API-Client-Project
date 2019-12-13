@@ -3,5 +3,5 @@
 
 ```r
 ## Install RforMakeup development version from GitHub:
-devtools::install_github("r-lib/devtools")
+devtools::install_github("QMSS-G5072-2019/Lai_Ting_An/RforMakeup")
 ```
