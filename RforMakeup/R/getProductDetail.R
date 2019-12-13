@@ -19,7 +19,7 @@
 #' getProductDetail(product_type="blush, brand="nyx", items=c('price', 'product_colors_hexvalues'))
 #' @import httr
 #' @import jsonlite
-#' @import tidyverse
+#' @import dplyr
 #' @export
 #'
 
