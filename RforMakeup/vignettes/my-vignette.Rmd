@@ -1,5 +1,5 @@
 ---
-title: "my-vignette"
+title: "RforMakeup-vignette"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -14,7 +14,26 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Installation
 ```{r setup}
-devtools::install_github("Lai_Ting_An/RforMakeup")
+devtools::install_github("chunngoo23/API-Client-Project/RforMakeup")
 library(RforMakeup)
 ```
+
+
+## An example output of a nyx blush product's product color hex values.
+```{r}
+nyx_blush_hex_df <- getProductDetail(product_type="blush", brand="nyx", items=c( 'name', 'brand', 'product_type', 'product_colors_hexvalues'))
+print (nyx_blush_hex_df)
+```
+
+
+
+## An example output of all the products that are expensive and low rating.
+```{r}
+df <- getProductPrice(price=5.5, price_condition_operator="greater than", rating=3, rating_condition_operator="less than")
+
+print (df)
+
+```
+
