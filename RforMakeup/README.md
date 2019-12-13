@@ -1,4 +1,5 @@
-Installation
+
+# Installation
 
 ```r
 ## Install RforMakeup development version from GitHub:
