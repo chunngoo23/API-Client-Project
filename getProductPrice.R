@@ -19,14 +19,15 @@
 #' @export
 
 getProductPrice <- function(price=5.5, price_condition_operator="greater than", rating=2, rating_condition_operator="greater than") {
-
+  price <- 5.5
 
   #construct working url
   ## condition one: price greater & rating greater
   if(price_condition_operator=='greater than') {
 
       if (rating_condition_operator=='greater than') {
-          param <- list(
+         
+         param <- list(
             price_greater_than=price,
             rating_greater_than=rating)
 
@@ -46,13 +47,12 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
             #only get relevant columns
             json_content_price <- json_content[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-            return(json_content_price)
+            #return(json_content_price)
 
 
-      ## condition two: price greater & rating less
       } else if (rating_condition_operator=='less than'){
         param <- list(
-          price_greater_than=price,
+          price_greater_than=price, #not found
           rating_less_than=rating)
 
         response <- httr::GET("http://makeup-api.herokuapp.com/api/v1/products.json", query=param)
@@ -69,7 +69,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
           #format it into json get the raw dataframe
           json_content <- jsonlite::fromJSON(response_content)
           json_content_price <- json_content[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-          return(json_content_price)
+          #return(json_content_price)
       }
       } else {
         rating <- rating-0.1
@@ -99,7 +99,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
           #only get relevant columns
           json_content_price <- equal_row[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-          return(json_content_price)
+          #return(json_content_price)
       }
       }
       }
@@ -127,7 +127,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
         #only get relevant columns
         json_content_price <- json_content[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-        return(json_content_price)
+        #return(json_content_price)
 
         ## condition two: price less & rating less
       } else if (rating_condition_operator=='less than'){
@@ -150,7 +150,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
           #format it into json get the raw dataframe
           json_content <- jsonlite::fromJSON(response_content)
           json_content_price <- json_content[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-          return(json_content_price)
+          #return(json_content_price)
         }
         ##price less, rating equal
       } else {
@@ -181,7 +181,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
           #only get relevant columns
           json_content_price <- equal_row[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-          return(json_content_price)
+          #return(json_content_price)
         }
       }
     }
@@ -215,7 +215,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
         #only get relevant columns
         json_content_price <- equal_row[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-        return(json_content_price)
+        #return(json_content_price)
 
       } else if (rating_condition_operator=='less than'){
         param <- list(
@@ -235,13 +235,13 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
           #format it into json get the raw dataframe
           json_content <- jsonlite::fromJSON(response_content)
-
+          df_price <- as.numeric(json_content$price)
           index <- which (json_content$price == min(df_price, na.rm=T))
           equal_row <- json_content[index,]
 
           #only get relevant columns
           json_content_price <- equal_row[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-          return(json_content_price)
+          #return(json_content_price)
 
         } else {
       rating <- rating-0.01
@@ -262,7 +262,8 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
       #format it into json get the raw dataframe
       json_content <- jsonlite::fromJSON(response_content)
-
+      
+      df_price <- as.numeric(json_content$price)
       #extract the minimum column
       index <- which (json_content$price == min(df_price, na.rm=T))
       #extract the minimun column
@@ -275,7 +276,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
 
       #only get relevant columns
       json_content_price <- equal_row[c('id', 'brand', 'name', 'price_sign', 'price', 'currency')]
-      return(json_content_price)
+      #return(json_content_price)
 
 }
 
@@ -283,9 +284,10 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
       }
     }
   }
+  return(json_content_price)
 }
 
 
-}
+
 
 

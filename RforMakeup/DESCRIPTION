@@ -11,5 +11,11 @@ LazyData: true
 RoxygenNote: 6.1.99.9001
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat,
+    http,
+    tidyverse,
+    jsonlite
+    lintr,
+    Spelling
 VignetteBuilder: knitr
