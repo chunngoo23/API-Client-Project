@@ -2,15 +2,12 @@
 #'
 #' @description Having specific makeup product in mind that you want to understand its details?
 #' This function returns a clean output of products' detailed features of user's selections from the makeup database.
-#' You can specify whether you want the output to be a string or a dataframe with option="string" | "frame"
-#' If you specify an option that isn't included in the list, the function will return the results as a dataframe.
 #' Specifying a  string or dataframe allows you to specify whether you want to return the entire results with NULL returns all product features, a vector of items, or a single item with item=""
 #' Valid options for 'items=' include 'product_name', 'product_type', 'brand', 'product_tags', 'price', 'description', 'image',  'product_colors_hexvalues', and 'product_colors_name.'
 #'
 #' @author Ting-An Lai, \email{tl2960k@columbia.edu}
 #' @param brand Defaults to NULL, you should enter a valid string of the brand you want to search.
 #' @param product_type Defaults to NULL, you should enter a valid string of the type of makeup you want to search.
-#' @param output Defaults to df, you could enter 'dataframe' or 'string' to receive different types of clean outputs.
 #' @param items Defaults to NULL, you could enter a vector of item strings or one item string to specify one specific feature you want to understand.
 #' @param ...
 #' @return An output of user's choice and queried products.
@@ -18,35 +15,22 @@
 #' getProductDetail()
 #' getProductDetail(product_type="eyebrow")
 #' getProductDetail(product_type="blush, brand="nyx")
-#' getProductDetail(product_type="blush, brand="nyx", output='df')
-#' getProductDetail(product_type="blush, brand="nyx", output='string', items='product_colors_hexvalues')
-#' getProductDetail(product_type="blush, brand="nyx", output='string', items=c('price', 'product_colors_hexvalues'))
+#' getProductDetail(product_type="blush, brand="nyx", items='product_colors_hexvalues')
+#' getProductDetail(product_type="blush, brand="nyx", items=c('price', 'product_colors_hexvalues'))
 #' @import httr
 #' @import jsonlite
 #' @import tidyverse
 #' @export
+#'
 
 
-getProductdf <- function(brand=NULL, product_type=NULL, output='df', items=NULL) {
-
-  #making sure the parameters queried
-  if (missing(brand)) {
-    brand <- NULL
-  }
-  if (missing(product_name)) {
-    product_tags <- NULL
-  }
-  if (missing(product_type)) {
-    product_type <- NULL
-  }
-
+getProductDetail <- function(brand=NULL, product_type=NULL, items=NULL) {
 
 
   #construct working url
   param <- list(
     product_type=product_type,
-    brand=brand,
-    name=product_name
+    brand=brand
   )
   #get raw response from the url
   response <- httr::GET("http://makeup-api.herokuapp.com/api/v1/products.json", query=param)
@@ -88,33 +72,20 @@ getProductdf <- function(brand=NULL, product_type=NULL, output='df', items=NULL)
     }
 
     #restructure json_content to a new dataframe
-    json_content_sub <- json_content %>%
-      subset(select=-c('product_colors')) %>%
-      cbind(product_colors_hex_values) %>%
-      cbind(product_colors_name)
-
+    json_content$product_colors_name <- sapply(product_colors_name, paste0, collapse=',')
+    json_content$product_colors_hexvalues <- sapply(product_colors_hex_values, paste0, collapse=',')
 
     ### deal with output
     #### output format asked for df
-    if(output='df'){
+
       if(is.null(items)){
-        return(json_content_sub)
+        return(json_content)
       } else {
-        result <- json_content_sub[items]
+        result <- json_content[items]
         return(result)
       }
-    } else {
-    #### output format asked for string
-
-
 
     }
-
-
-
-
-
-    #return(json_content)
   }
 
-}
+
