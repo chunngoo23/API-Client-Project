@@ -1,7 +1,27 @@
 
-# Installation
+## Installation
 
 ```r
-## Install RforMakeupfrom GitHub:
-devtools::install_github("QMSS-G5072-2019/Lai_Ting_An/RforMakeup")
+## Install RforMakeup from GitHub:
+devtools::install_github("chunngoo23/API-Client-Project/RforMakeup")
+```
+## Usage
+### getProductDetail()
+```r
+library(RforMakeup)
+
+#get the df for all eyebrow product details
+eyebrow_df <- getProductDetail(product_type="eyebrow")
+
+#get the df for all nyx blush product details
+nyx_blush_df <- getProductDetail(product_type="blush", brand="nyx")
+
+#get the hex value and price for all nyx blush products
+nyx_blush_color_hex_price_df <- getProductDetail(product_type="blush", brand="nyx", items=c('price', 'product_colors_hexvalues'))
+```
+
+### getProductPrice()
+```r
+#get all products that are more expensive than $5.5 and has rating 2 in dataframe
+price_5.5_rating_2_df <- getProductPrice(price=5.5, price_condition_operator="greater than", rating=2, rating_condition_operator="equal")
 ```
