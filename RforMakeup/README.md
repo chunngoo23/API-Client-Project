@@ -28,6 +28,7 @@ nyx_blush_color_hex_price_df
 ```
 
 ### getProductPrice()
+This is a function for user to query makeup product list according to product pricing and rating conditions.
 ```r
 #get all products that are more expensive than $5.5 and has rating 2 in dataframe
 price_5.5_rating_2_df <- getProductPrice(price=5.5, price_condition_operator="greater than", rating=2, rating_condition_operator="equal")
