@@ -14,14 +14,13 @@
 #' @examples
 #' getProductDetail()
 #' getProductDetail(product_type="eyebrow")
-#' getProductDetail(product_type="blush, brand="nyx")
-#' getProductDetail(product_type="blush, brand="nyx", items='product_colors_hexvalues')
-#' getProductDetail(product_type="blush, brand="nyx", items=c('price', 'product_colors_hexvalues'))
+#' getProductDetail(product_type="blush", brand="nyx")
+#' getProductDetail(product_type="blush", brand="nyx", items='product_colors_hexvalues')
+#' getProductDetail(product_type="blush", brand="nyx", items=c('price', 'product_colors_hexvalues'))
 #' @import httr
 #' @import jsonlite
 #' @import dplyr
 #' @export
-#'
 
 
 getProductDetail <- function(brand=NULL, product_type=NULL, items=NULL) {

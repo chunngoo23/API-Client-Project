@@ -7,7 +7,6 @@ Authors@R: person("Ting-An", "Lai", email = "tlai28@wisc.edu",
 Maintainer: Ting An Lai <tlai28@wisc.edu>
 Description: A package that includes two functions for user to easily query makeup product details and price in convenient dataframe format.
 Encoding: UTF-8
-LazyData: true
 License: MIT + file LICENSE
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
@@ -16,4 +15,6 @@ Imports:
     jsonlite,
     httr,
     spelling,
-    testthat
+    testthat,
+    knitr
+Suggests: knitr, rmarkdown

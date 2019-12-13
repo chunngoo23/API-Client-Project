@@ -98,7 +98,7 @@ getProductPrice <- function(price=5.5, price_condition_operator="greater than", 
     json_content_price <- json_content[c('id', 'brand', 'name', 'price_sign', 'price', 'currency', 'rating')]
     json_content_price$price <- as.numeric(json_content_price$price)
 
-    index <- c(1:dim(json_content_price[1]))
+    index <- c(1:dim(json_content_price)[1])
     index_p <- c()
     index_r <- c()
 
