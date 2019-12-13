@@ -20,7 +20,7 @@ nyx_blush_df <- getProductDetail(product_type="blush", brand="nyx")
 nyx_blush_color_hex_price_df <- getProductDetail(product_type="blush", brand="nyx", items=c('price', 'product_colors_hexvalues'))
 
 #example result
-print(nyx_blush_color_hex_price_df)
+nyx_blush_color_hex_price_df
 ```
 
 ### getProductPrice()
