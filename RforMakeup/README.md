@@ -6,7 +6,10 @@
 devtools::install_github("chunngoo23/API-Client-Project/RforMakeup")
 ```
 ## Usage
+This package includes two useful functions for user to query makeup product data from the API. 
+
 ### getProductDetail()
+This function 
 ```r
 library(RforMakeup)
 
